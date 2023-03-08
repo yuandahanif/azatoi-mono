@@ -8,7 +8,7 @@ async function main() {
     name: t,
   }));
 
-  await prisma.tag.createMany({ data: tagsData });
+  // await prisma.tag.createMany({ data: tagsData });
 
   const user = await prisma.user.upsert({
     create: {
@@ -44,13 +44,13 @@ async function main() {
     user_id: user.id,
   });
 
-  await prisma.post.createMany({ data: posts });
+  // await prisma.post.createMany({ data: posts });
 
   const postsDb = await prisma.post.findMany();
 
   const postTags = postsDb.map((p, i) => ({
     post_id: p.id,
-    tag_id: tags[i]?.id ?? "clezw1hyr0000jb973cmtjjkl", // give it default id after generating tags
+    tag_id: tags[i]?.id ?? "clf01tlgg0000jb84ykj8bgk5", // give it default id after generating tags
   }));
 
   await prisma.postsOnTags.createMany({ data: postTags });

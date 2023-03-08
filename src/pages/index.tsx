@@ -3,11 +3,12 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { Quicksand } from "next/font/google";
 
 import { api } from "~/utils/api";
-import SEOHead from "~/components/seoHeader";
+import SEOHead from "~/components/header/seoHeader";
 import MainLayout from "~/layouts/main";
 import Image from "next/image";
 import Header from "~/components/header/header";
 import Hero from "~/components/hero/hero";
+import Footer from "~/components/footer/footer";
 
 const quicksand = Quicksand({
   weight: ["400", "500", "700"],
@@ -20,10 +21,8 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <SEOHead />
-
+      <SEOHead description="Tujuan pertama buat nyari Fansub - Azatoi" />
       <Header />
-
       <Hero />
 
       <MainLayout>
@@ -71,7 +70,11 @@ const Home: NextPage = () => {
             </>
           )}
         </div>
+
+
       </MainLayout>
+
+      <Footer />
     </>
   );
 };

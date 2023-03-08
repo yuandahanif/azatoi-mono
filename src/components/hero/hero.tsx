@@ -9,7 +9,17 @@ const quicksand = Quicksand({
 });
 
 const H1 = styled.h1`
-  text-shadow: 2px 2px #ff0000;
+  /* text-shadow: 2px 2px #ff0000; */
+
+  position: relative;
+
+  &::before {
+    z-index: -1;
+    position: absolute;
+    color: red;
+    rotate: 4deg;
+    content: attr(aria-label);
+  }
 `;
 
 const Span = styled.h1`
@@ -49,8 +59,6 @@ const Hero = () => {
     const container = containerRef.current;
     const obj = blurRef.current as HTMLDivElement;
     const mouseMoveHandler = (event: MouseEvent) => {
-      console.log(`Mouse X: ${event.clientX}, Mouse Y: ${event.clientY}`);
-
       if (obj) {
         obj.animate(
           [{ top: `${event.clientY}px`, left: `${event.clientX}px` }],
@@ -69,18 +77,20 @@ const Hero = () => {
   return (
     <div
       ref={containerRef}
-      className=" relative flex h-screen flex-col items-center justify-center bg-[url('https://blogger.googleusercontent.com/img/a/AVvXsEjpejYXmamsABBcLX25LG4YT2PBM1z7z3TdkkRUzx_uTOg5V7REWWDHjdBM7JrkZ4vKvFjc4fyiWqH1GRXu_Ba7THMVeDBBvtBIVOThcs_ANGtHH-I16rxYFSJzoUqCVvWrXnrxtSnOVtmYgbm3hBqOiil8KEFIZJ6e7ffXGIKGs2uO28k3FeBuYEhdhg=s1408')] bg-cover bg-center bg-no-repeat"
+      className="overflow-x-hidden relative flex h-screen w-auto flex-col items-center justify-center bg-[url('https://blogger.googleusercontent.com/img/a/AVvXsEjpejYXmamsABBcLX25LG4YT2PBM1z7z3TdkkRUzx_uTOg5V7REWWDHjdBM7JrkZ4vKvFjc4fyiWqH1GRXu_Ba7THMVeDBBvtBIVOThcs_ANGtHH-I16rxYFSJzoUqCVvWrXnrxtSnOVtmYgbm3hBqOiil8KEFIZJ6e7ffXGIKGs2uO28k3FeBuYEhdhg=s1408')] bg-cover bg-center bg-no-repeat"
     >
       <Blob
         ref={blurRef}
         className="rounded-full bg-gradient-to-r from-red-300 to-sky-300 blur-xl"
       />
-      <div className="absolute top-0 left-0 right-0 bottom-0 z-20 backdrop-blur-md" />
+      <div className="absolute top-0 left-0 z-20 h-full w-full backdrop-blur-md" />
 
       <div
         className={`z-20 flex flex-col items-center justify-center text-white ${quicksand.className}`}
       >
-        <H1 className="text-8xl font-bold">AZATOI</H1>
+        <H1 className=" text-xl font-bold md:text-9xl" aria-label="AZATOI">
+          AZATOI
+        </H1>
         <Span className="text-2xl ">Fansub Tanjakan 48</Span>
       </div>
     </div>
