@@ -9,6 +9,7 @@
 /** @type {import("next").NextConfig} */
 const config = {
   reactStrictMode: true,
+  compiler: { styledComponents: true },
   images: {
     domains: ["static.wikia.nocookie.net"],
   },

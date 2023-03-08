@@ -7,6 +7,7 @@ import SEOHead from "~/components/seoHeader";
 import MainLayout from "~/layouts/main";
 import Image from "next/image";
 import Header from "~/components/header/header";
+import Hero from "~/components/hero/hero";
 
 const quicksand = Quicksand({
   weight: ["400", "500", "700"],
@@ -23,14 +24,7 @@ const Home: NextPage = () => {
 
       <Header />
 
-      <div className="relative flex h-screen flex-col items-center justify-center bg-[url('https://blogger.googleusercontent.com/img/a/AVvXsEjpejYXmamsABBcLX25LG4YT2PBM1z7z3TdkkRUzx_uTOg5V7REWWDHjdBM7JrkZ4vKvFjc4fyiWqH1GRXu_Ba7THMVeDBBvtBIVOThcs_ANGtHH-I16rxYFSJzoUqCVvWrXnrxtSnOVtmYgbm3hBqOiil8KEFIZJ6e7ffXGIKGs2uO28k3FeBuYEhdhg=s1408')] bg-cover bg-center bg-no-repeat">
-        <div
-          className={`flex flex-col items-center justify-center text-white ${quicksand.className}`}
-        >
-          <span className="text-8xl font-bold shadow-md">AZATOI</span>
-          <span className="text-2xl  shadow-md">Fansub Tanjakan 46</span>
-        </div>
-      </div>
+      <Hero />
 
       <MainLayout>
         <div
@@ -59,7 +53,9 @@ const Home: NextPage = () => {
                   </div>
 
                   <div className="flex justify-end">
-                    <span className="text-sm ml-auto">oleh {p?.Creator.name ?? ""}</span>
+                    <span className="ml-auto text-sm">
+                      oleh {p?.Creator.name ?? ""}
+                    </span>
                   </div>
 
                   <span
