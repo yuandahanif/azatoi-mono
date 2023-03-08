@@ -55,6 +55,7 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    Post          Post[]
 }
 
 model VerificationToken {
@@ -66,18 +67,29 @@ model VerificationToken {
 }
 
 model Post {
-    id         String   @id @default(cuid())
+    id         String        @id @default(cuid())
+    title      String
     thumbnail  String
-    content    String   @db.Text
-    Tags       Tags[]
-    view_count Int      @default(0)
-    created_at DateTime @default(now())
-    updated_at DateTime @updatedAt
+    content    String        @db.Text
+    view_count Int           @default(0)
+    creator    User          @relation(fields: [user_id], references: [id])
+    created_at DateTime      @default(now())
+    updated_at DateTime      @updatedAt
+    user_id    String
+    Tags       PostsOnTags[]
 }
 
-model Tags {
-    id      String  @id @default(cuid())
-    name    String
-    Post    Post?   @relation(fields: [post_id], references: [id])
-    post_id String?
+model Tag {
+    id    String        @id @default(cuid())
+    name  String
+    Posts PostsOnTags[]
+}
+
+model PostsOnTags {
+    Post    Post   @relation(fields: [post_id], references: [id])
+    post_id String // relation scalar field (used in the `@relation` attribute above)
+    Tag     Tag    @relation(fields: [tag_id], references: [id])
+    tag_id  String // relation scalar field (used in the `@relation` attribute above)
+
+    @@id([post_id, tag_id])
 }
