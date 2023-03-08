@@ -49,7 +49,7 @@ model Session {
 
 model User {
     id            String    @id @default(cuid())
-    name          String?
+    name          String    @default("Admin")
     email         String?   @unique
     emailVerified DateTime?
     image         String?
@@ -72,7 +72,7 @@ model Post {
     thumbnail  String
     content    String        @db.Text
     view_count Int           @default(0)
-    creator    User          @relation(fields: [user_id], references: [id])
+    Creator    User          @relation(fields: [user_id], references: [id])
     created_at DateTime      @default(now())
     updated_at DateTime      @updatedAt
     user_id    String

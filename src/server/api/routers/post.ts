@@ -8,12 +8,18 @@ import {
 
 export const postRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.post.findMany();
+    return ctx.prisma.post.findMany({
+      include: { Creator: true },
+      orderBy: { created_at: "desc" },
+    });
   }),
 
   getbyId: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
-      return ctx.prisma.post.findFirstOrThrow({ where: { id: input.id } });
+      return ctx.prisma.post.findFirstOrThrow({
+        where: { id: input.id },
+        include: { Creator: true, Tags: true },
+      });
     }),
 });
