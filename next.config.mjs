@@ -15,6 +15,8 @@ const config = {
       "static.wikia.nocookie.net",
       "media.tenor.com",
       "www.animesenpai.net",
+      "dafunda.com",
+      "cdn.discordapp.com",
     ],
   },
   /**

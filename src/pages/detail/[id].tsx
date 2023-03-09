@@ -9,6 +9,7 @@ import MainLayout from "~/layouts/main";
 import { api } from "~/utils/api";
 import React from "react";
 import Link from "next/link";
+import printToLocalDate from "~/libs/dateFormater";
 
 const SectionTitle: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -42,12 +43,7 @@ const Detail: NextPage = () => {
               <div className="mt-2 flex gap-x-8">
                 <span>
                   Diposting oleh - {post.data.Creator.name} | pada{" "}
-                  {post.data.created_at.toLocaleString("id-id", {
-                    weekday: "long",
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
+                  {printToLocalDate(post.data.created_at)}
                 </span>
                 <span></span>
               </div>

@@ -1,5 +1,5 @@
 import { type NextPage } from "next";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import SEOHead from "~/components/header/seoHeader";
 import MainLayout from "~/layouts/main";
 import Image from "next/image";
@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 const AdminNot: NextPage = () => {
-  const { data: sessionData, status } = useSession();
+  const { status } = useSession();
   const router = useRouter();
 
   useEffect(() => {

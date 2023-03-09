@@ -1,5 +1,5 @@
 import { type NextPage } from "next";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import SEOHead from "~/components/header/seoHeader";
 import MainLayout from "~/layouts/main";
 import Image from "next/image";
@@ -7,8 +7,9 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 const AdminSignIn: NextPage = () => {
-  const { data: sessionData, status } = useSession();
+  const { status } = useSession();
   const router = useRouter();
+
   useEffect(() => {
     if (status == "authenticated") {
       void router.replace("/admin/");
@@ -34,9 +35,9 @@ const AdminSignIn: NextPage = () => {
           </div>
           <button
             className="rounded-full bg-red-300/50 px-10 py-3 font-semibold text-white no-underline transition duration-300 hover:bg-red-300"
-            onClick={sessionData ? () => void signOut() : () => void signIn()}
+            onClick={() => void signIn()}
           >
-            {sessionData ? "Sign out" : "Masuk?"}
+            Masuk?
           </button>
         </div>
       </MainLayout>
