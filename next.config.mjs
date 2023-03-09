@@ -11,7 +11,11 @@ const config = {
   reactStrictMode: true,
   compiler: { styledComponents: true },
   images: {
-    domains: ["static.wikia.nocookie.net", "media.tenor.com"],
+    domains: [
+      "static.wikia.nocookie.net",
+      "media.tenor.com",
+      "www.animesenpai.net",
+    ],
   },
   /**
    * If you have the "experimental: { appDir: true }" setting enabled, then you

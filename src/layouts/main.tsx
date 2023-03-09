@@ -1,16 +1,10 @@
-import { Quicksand } from "next/font/google";
 import { twMerge } from "tailwind-merge";
+import quicksand from "~/fonts/quicksand";
 
 interface Props {
   className?: string;
   children: React.ReactNode;
 }
-
-const quicksand = Quicksand({
-  weight: ["400", "500", "700"],
-  style: ["normal"],
-  subsets: ["latin"],
-});
 
 const MainLayout: React.FC<Props> = ({ className, children }) => (
   <main

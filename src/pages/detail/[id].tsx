@@ -7,7 +7,6 @@ import SEOHead from "~/components/header/seoHeader";
 import Loading from "~/components/loading/loading";
 import MainLayout from "~/layouts/main";
 import { api } from "~/utils/api";
-import styled from "styled-components";
 import React from "react";
 import Link from "next/link";
 

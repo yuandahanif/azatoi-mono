@@ -1,15 +1,8 @@
 import { type Post, type User } from "@prisma/client";
 import Image from "next/image";
-import { Quicksand } from "next/font/google";
-import { useEffect, useRef } from "react";
 import styled from "styled-components";
 import Link from "next/link";
-
-const quicksand = Quicksand({
-  weight: ["400", "500", "700"],
-  style: ["normal"],
-  subsets: ["latin"],
-});
+import quicksand from "~/fonts/quicksand";
 
 const CardContainer = styled.div`
   position: relative;
@@ -42,32 +35,9 @@ interface Props {
 }
 
 const ContentCard: React.FC<Props> = ({ post }) => {
-  const imgRef = useRef<HTMLDivElement | null>(null);
-  useEffect(() => {
-    const img = imgRef.current;
-
-    const mouseOverHandler = (e: MouseEvent) => {
-      const target = e.currentTarget as HTMLDivElement;
-      //   if (target) {
-      //     target.animate([{ rotate: `9deg` }], {
-      //       duration: 400,
-      //       fill: "both",
-      //     });
-      //   }
-    };
-
-    img?.addEventListener("mouseover", mouseOverHandler, true);
-    return () => {
-      img?.removeEventListener("mouseover", mouseOverHandler, true);
-    };
-  }, []);
-
   return (
     <CardContainer className="rounded-md border-2 border-red-300 bg-white p-3">
-      <div
-        ref={imgRef}
-        className="relative mb-4 flex h-56 w-full justify-center"
-      >
+      <div className="relative mb-4 flex h-56 w-full justify-center">
         <Image
           className="object-cover object-center"
           src={post.thumbnail}

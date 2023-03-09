@@ -1,12 +1,6 @@
-import { Quicksand } from "next/font/google";
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
-
-const quicksand = Quicksand({
-  weight: ["400", "500", "700"],
-  style: ["normal"],
-  subsets: ["latin"],
-});
+import quicksand from "~/fonts/quicksand";
 
 const H1 = styled.h1`
   position: relative;
