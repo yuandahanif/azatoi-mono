@@ -68,7 +68,7 @@ const Detail: NextPage = () => {
                   <p>{post.data.content}</p>
                 </div>
 
-                <div className="mt-8">
+                <div className="mt-4">
                   <span>Kategori</span>
                   <ul className="flex flex-wrap gap-2">
                     {post.data.Tags.map((t) => (
@@ -76,7 +76,7 @@ const Detail: NextPage = () => {
                         <Link href={`/tag/${t.tag_id}`}>
                           <button
                             type="button"
-                            className="rounded-sm bg-slate-200 p-1 px-2"
+                            className="rounded-sm bg-slate-200 p-1 px-2 hover:bg-sky-600 duration-300 hover:text-white"
                           >
                             {t.Tag.name}
                           </button>
@@ -115,7 +115,7 @@ const Detail: NextPage = () => {
 
                       <div>
                         <Link href={`/detail/${p.id}`}>
-                          <span className=" font-semibold line-clamp-3 hover:underline">
+                          <span className="font-semibold line-clamp-3 hover:underline">
                             {p.title}
                           </span>
                         </Link>

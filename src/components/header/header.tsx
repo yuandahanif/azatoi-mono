@@ -4,7 +4,11 @@ const Header = () => {
   return (
     <header className="sticky top-0 left-0 right-0 z-50  bg-black p-8 text-white">
       <div className="mx-auto flex max-w-screen-xl justify-between">
-        <div>Logo</div>
+        <div>
+          <Link href="/">
+            <span>Logo</span>
+          </Link>
+        </div>
 
         <nav>
           <ul className="flex gap-x-6 font-semibold">
