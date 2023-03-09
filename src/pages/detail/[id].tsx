@@ -27,6 +27,7 @@ const Detail: NextPage = () => {
     { enabled: id != null }
   );
   const popularPost = api.post.getPopular.useQuery();
+  const tagsWithCount = api.tag.getAllWithCount.useQuery();
 
   return (
     <>
@@ -76,7 +77,7 @@ const Detail: NextPage = () => {
                         <Link href={`/tag/${t.tag_id}`}>
                           <button
                             type="button"
-                            className="rounded-sm bg-slate-200 p-1 px-2 hover:bg-sky-600 duration-300 hover:text-white"
+                            className="rounded-sm bg-slate-200 p-1 px-2 duration-300 hover:bg-sky-600 hover:text-white"
                           >
                             {t.Tag.name}
                           </button>
@@ -97,13 +98,14 @@ const Detail: NextPage = () => {
             </SectionTitle>
 
             {popularPost.isLoading && <Loading />}
+            {popularPost.isError && <div>error</div>}
 
             {popularPost.isSuccess && (
               <>
                 <article className="flex flex-col gap-y-4 pt-4">
                   {popularPost.data.map((p) => (
                     <div key={p.id} className="flex gap-x-3">
-                      <div className="relative h-20 w-20">
+                      <div className="relative h-20 w-20 min-w-[5rem] overflow-hidden rounded-sm">
                         <Image
                           src={p.thumbnail}
                           alt={p.title}
@@ -115,7 +117,7 @@ const Detail: NextPage = () => {
 
                       <div>
                         <Link href={`/detail/${p.id}`}>
-                          <span className="font-semibold line-clamp-3 hover:underline">
+                          <span className="w-fit font-semibold line-clamp-3 hover:underline">
                             {p.title}
                           </span>
                         </Link>
@@ -133,6 +135,34 @@ const Detail: NextPage = () => {
             </SectionTitle>
 
             <div>Nanti di isi pake iframe dari Trakteer</div>
+          </div>
+
+          <div>
+            <SectionTitle>
+              <h2>Kategori</h2>
+            </SectionTitle>
+
+            <div className="flex flex-wrap gap-3 pt-4">
+              {tagsWithCount.isSuccess && (
+                <>
+                  {tagsWithCount.data.map((t) => (
+                    <Link key={t.id} href={`/tag/${t.id}`}>
+                      <button
+                        type="button"
+                        className="group rounded-sm bg-slate-200 p-1 px-2 duration-300 hover:bg-sky-600 hover:text-white"
+                        key={t.id}
+                      >
+                        <span>{t.name}</span>
+
+                        <span className="ml-2 flex-initial bg-slate-300 px-1 group-hover:bg-sky-800">
+                          {t._count.Posts}
+                        </span>
+                      </button>
+                    </Link>
+                  ))}
+                </>
+              )}
+            </div>
           </div>
         </aside>
       </MainLayout>

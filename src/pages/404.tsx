@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const Custom404 = () => (
-  <div className="flex h-screen flex-col items-center justify-center bg-red-300">
+  <div className="flex h-screen flex-col items-center justify-center bg-red-300 text-white">
     <span className="text-9xl">404</span>
 
     <div className="relative my-8 h-96 w-full">

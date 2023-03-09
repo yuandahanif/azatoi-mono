@@ -27,7 +27,7 @@ const Home: NextPage = () => {
         <div
           className={`mb-6 mt-10 flex w-full flex-col items-center justify-center `}
         >
-          <span className="text-2xl font-semibold">Rilis Terbaru</span>
+          <span className="text-4xl font-semibold">Rilis Terbaru</span>
           <span>12 Rilis Terbaru</span>
         </div>
 

@@ -9,9 +9,9 @@ interface Props {
 const SEOHead: React.FC<Props> = ({ description, subTitle, title }) => (
   <Head>
     <title>{`${title ?? "Azatoi | "}${
-      subTitle ?? "Fansub Tanjakan 46"
+      subTitle ?? "Fansub Tanjakan 48"
     }`}</title>
-    <meta name="description" content={description ?? "Fansub Tanjakan 46"} />
+    <meta name="description" content={description ?? "Fansub Tanjakan 48"} />
     <link rel="icon" href="/favicon.ico" />
   </Head>
 );
