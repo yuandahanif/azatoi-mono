@@ -6,12 +6,13 @@ import Image from "next/image";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
-const AdminSignIn: NextPage = () => {
+const AdminNot: NextPage = () => {
   const { data: sessionData, status } = useSession();
   const router = useRouter();
+
   useEffect(() => {
     if (status == "authenticated") {
-      void router.replace("/admin/");
+      void signOut();
     }
   }, [router, status]);
 
@@ -26,22 +27,17 @@ const AdminSignIn: NextPage = () => {
               aria-label="Ssstt . . . ! ini tempat admin, kalian gaboleh kesini."
               className="object-contain"
               src={
-                "https://media.tenor.com/T29yqKmoy14AAAAd/bocchi-trash-bocchi-the-rock.gif"
+                "https://media.tenor.com/KVFqRA1S1NoAAAAd/bocchi-the-rock-bocchi.gif"
               }
               alt=""
               fill
             />
           </div>
-          <button
-            className="rounded-full bg-red-300/50 px-10 py-3 font-semibold text-white no-underline transition duration-300 hover:bg-red-300"
-            onClick={sessionData ? () => void signOut() : () => void signIn()}
-          >
-            {sessionData ? "Sign out" : "Masuk?"}
-          </button>
+          <span>halo admin?</span>
         </div>
       </MainLayout>
     </>
   );
 };
 
-export default AdminSignIn;
+export default AdminNot;
