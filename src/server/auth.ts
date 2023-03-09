@@ -30,6 +30,8 @@ declare module "next-auth" {
   // }
 }
 
+const scopes = ["identify"].join(" ");
+
 /**
  * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
  *
@@ -50,6 +52,7 @@ export const authOptions: NextAuthOptions = {
     DiscordProvider({
       clientId: env.DISCORD_CLIENT_ID,
       clientSecret: env.DISCORD_CLIENT_SECRET,
+      authorization: { params: { scope: scopes } },
     }),
     /**
      * ...add more providers here.
