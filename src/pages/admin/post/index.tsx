@@ -66,7 +66,12 @@ const AdminPostIndex: NextPage = () => {
       <SEOHead description="Tujuan pertama buat nyari Fansub - Azatoi" />
 
       <AdminLayout className="h-screen w-full bg-slate-300">
-        <h1 className="text-2xl font-semibold">Posting</h1>
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-semibold">Posting</h1>
+          <div>
+            <Link href={`/admin/post/tambah`}>Tambah</Link>
+          </div>
+        </div>
 
         <div className="mt-5 flex flex-col">
           <table {...getTableProps()} className="">
