@@ -11,7 +11,29 @@ const quicksand = Quicksand({
   subsets: ["latin"],
 });
 
-const CardContainer = styled.div``;
+const CardContainer = styled.div`
+  position: relative;
+  z-index: 2;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(0deg) scale(1);
+    border: 2px solid rgb(252, 165, 165);
+    /* background-color: ; */
+    z-index: -1;
+    border-radius: 0.375rem;
+    transition-duration: 300ms;
+  }
+
+  &:hover::before {
+    transform: rotate(3deg) scale(1.01);
+  }
+`;
 
 interface Props {
   post: Post & {
@@ -41,10 +63,10 @@ const ContentCard: React.FC<Props> = ({ post }) => {
   }, []);
 
   return (
-    <CardContainer className="rounded-md border-2 border-slate-500 p-3 border-red-300">
+    <CardContainer className="rounded-md border-2 border-red-300 bg-white p-3">
       <div
         ref={imgRef}
-        className="relative mb-4 flex h-56 w-full justify-center bg-red-300"
+        className="relative mb-4 flex h-56 w-full justify-center"
       >
         <Image
           className="object-cover object-center"
