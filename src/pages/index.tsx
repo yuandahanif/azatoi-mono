@@ -35,7 +35,7 @@ const Home: NextPage = () => {
 
         {posts.isSuccess && (
           <>
-            <div className="grid grid-flow-row grid-cols-1 md:grid-cols-3 gap-4 text-slate-600">
+            <div className="grid grid-flow-row grid-cols-1 md:grid-cols-3 gap-10 text-slate-600">
               <>
                 {posts.data.map((p) => (
                   <ContentCard post={p} key={p.id} />

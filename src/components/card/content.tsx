@@ -2,6 +2,7 @@ import { type Post, type User } from "@prisma/client";
 import Image from "next/image";
 import { Quicksand } from "next/font/google";
 import { useEffect, useRef } from "react";
+import styled from "styled-components";
 import Link from "next/link";
 
 const quicksand = Quicksand({
@@ -9,6 +10,8 @@ const quicksand = Quicksand({
   style: ["normal"],
   subsets: ["latin"],
 });
+
+const CardContainer = styled.div``;
 
 interface Props {
   post: Post & {
@@ -38,7 +41,7 @@ const ContentCard: React.FC<Props> = ({ post }) => {
   }, []);
 
   return (
-    <div className="rounded-md border border-slate-500 p-3">
+    <CardContainer className="rounded-md border-2 border-slate-500 p-3 border-red-300">
       <div
         ref={imgRef}
         className="relative mb-4 flex h-56 w-full justify-center bg-red-300"
@@ -58,7 +61,7 @@ const ContentCard: React.FC<Props> = ({ post }) => {
 
       <Link href={`/detail/${post.id}`}>
         <span
-          className={` hover:underline text-2xl font-semibold line-clamp-3 ${quicksand.className}`}
+          className={` text-2xl font-semibold line-clamp-3 hover:underline ${quicksand.className}`}
         >
           {post.title}
         </span>
@@ -66,7 +69,7 @@ const ContentCard: React.FC<Props> = ({ post }) => {
       <div>
         <p className="line-clamp-3">{post.content}</p>
       </div>
-    </div>
+    </CardContainer>
   );
 };
 
