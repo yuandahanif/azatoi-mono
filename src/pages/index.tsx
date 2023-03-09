@@ -1,20 +1,18 @@
 import { type NextPage } from "next";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { Quicksand } from "next/font/google";
+import styled from "styled-components";
 
 import { api } from "~/utils/api";
 import SEOHead from "~/components/header/seoHeader";
 import MainLayout from "~/layouts/main";
-import Image from "next/image";
 import Header from "~/components/header/header";
 import Hero from "~/components/hero/hero";
 import Footer from "~/components/footer/footer";
+import Link from "next/link";
+import Loading from "~/components/loading/loading";
+import ContentCard from "~/components/card/content";
 
-const quicksand = Quicksand({
-  weight: ["400", "500", "700"],
-  style: ["normal"],
-  subsets: ["latin"],
-});
+const MoreButton = styled.button``;
 
 const Home: NextPage = () => {
   const posts = api.post.getAll.useQuery();
@@ -27,51 +25,35 @@ const Home: NextPage = () => {
 
       <MainLayout>
         <div
-          className={`mb-6 mt-10 flex w-full flex-col items-center justify-center ${quicksand.className}`}
+          className={`mb-6 mt-10 flex w-full flex-col items-center justify-center `}
         >
           <span className="text-2xl font-semibold">Rilis Terbaru</span>
           <span>12 Rilis Terbaru</span>
         </div>
 
-        <div className="grid grid-flow-row grid-cols-3 gap-4 text-slate-600">
-          {posts.isSuccess && (
-            <>
-              {posts.data.map((p) => (
-                <div
-                  key={p.id}
-                  className="rounded-md border border-slate-500 p-3"
+        {posts.isLoading && <Loading />}
+
+        {posts.isSuccess && (
+          <>
+            <div className="grid grid-flow-row grid-cols-3 gap-4 text-slate-600">
+              <>
+                {posts.data.map((p) => (
+                  <ContentCard post={p} key={p.id} />
+                ))}
+              </>
+            </div>
+            <div className="mt-8 flex justify-center">
+              <Link href="/#">
+                <MoreButton
+                  type="button"
+                  className="rounded-md border border-slate-500 bg-white p-3"
                 >
-                  <div className="relative mb-4 flex h-56 w-full justify-center bg-red-300">
-                    <Image
-                      className="object-cover object-center"
-                      src={p.thumbnail}
-                      alt={p.title}
-                      loading="lazy"
-                      fill
-                    />
-                  </div>
-
-                  <div className="flex justify-end">
-                    <span className="ml-auto text-sm">
-                      oleh {p?.Creator.name ?? ""}
-                    </span>
-                  </div>
-
-                  <span
-                    className={`text-2xl font-semibold line-clamp-3 ${quicksand.className}`}
-                  >
-                    {p.title}
-                  </span>
-                  <div>
-                    <p className="line-clamp-3">{p.content}</p>
-                  </div>
-                </div>
-              ))}
-            </>
-          )}
-        </div>
-
-
+                  Tampilkan lainnya
+                </MoreButton>
+              </Link>
+            </div>
+          </>
+        )}
       </MainLayout>
 
       <Footer />

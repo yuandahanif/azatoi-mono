@@ -19,7 +19,14 @@ export const postRouter = createTRPCRouter({
     .query(({ ctx, input }) => {
       return ctx.prisma.post.findFirstOrThrow({
         where: { id: input.id },
-        include: { Creator: true, Tags: true },
+        include: { Creator: true, Tags: { include: { Tag: true } } },
       });
     }),
+
+  getPopular: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.post.findMany({
+      orderBy: { view_count: "desc" },
+      take: 3,
+    });
+  }),
 });

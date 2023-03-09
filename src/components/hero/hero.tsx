@@ -9,8 +9,6 @@ const quicksand = Quicksand({
 });
 
 const H1 = styled.h1`
-  /* text-shadow: 2px 2px #ff0000; */
-
   position: relative;
 
   &::before {
@@ -77,7 +75,7 @@ const Hero = () => {
   return (
     <div
       ref={containerRef}
-      className="overflow-x-hidden relative flex h-screen w-auto flex-col items-center justify-center bg-[url('https://blogger.googleusercontent.com/img/a/AVvXsEjpejYXmamsABBcLX25LG4YT2PBM1z7z3TdkkRUzx_uTOg5V7REWWDHjdBM7JrkZ4vKvFjc4fyiWqH1GRXu_Ba7THMVeDBBvtBIVOThcs_ANGtHH-I16rxYFSJzoUqCVvWrXnrxtSnOVtmYgbm3hBqOiil8KEFIZJ6e7ffXGIKGs2uO28k3FeBuYEhdhg=s1408')] bg-cover bg-center bg-no-repeat"
+      className="overflow-hidden relative flex h-screen w-auto flex-col items-center justify-center bg-[url('https://blogger.googleusercontent.com/img/a/AVvXsEjpejYXmamsABBcLX25LG4YT2PBM1z7z3TdkkRUzx_uTOg5V7REWWDHjdBM7JrkZ4vKvFjc4fyiWqH1GRXu_Ba7THMVeDBBvtBIVOThcs_ANGtHH-I16rxYFSJzoUqCVvWrXnrxtSnOVtmYgbm3hBqOiil8KEFIZJ6e7ffXGIKGs2uO28k3FeBuYEhdhg=s1408')] bg-cover bg-center bg-no-repeat"
     >
       <Blob
         ref={blurRef}
@@ -88,10 +86,10 @@ const Hero = () => {
       <div
         className={`z-20 flex flex-col items-center justify-center text-white ${quicksand.className}`}
       >
-        <H1 className=" text-xl font-bold md:text-9xl" aria-label="AZATOI">
+        <H1 className=" text-7xl font-bold md:text-9xl" aria-label="AZATOI">
           AZATOI
         </H1>
-        <Span className="text-2xl ">Fansub Tanjakan 48</Span>
+        <Span className="text-xl md:text-2xl ">Fansub Tanjakan 48</Span>
       </div>
     </div>
   );
