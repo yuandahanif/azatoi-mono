@@ -16,7 +16,7 @@ import quicksand from "~/fonts/quicksand";
 const MoreButton = styled.button``;
 
 const Home: NextPage = () => {
-  const posts = api.post.getAll.useQuery();
+  const posts = api.post.getAll.useQuery({ count: 12 });
 
   return (
     <>

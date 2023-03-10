@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import AdminLayout from "~/layouts/admin";
 import dynamic from "next/dynamic";
-import { FormEventHandler, useMemo, useState } from "react";
+import { type FormEventHandler, useMemo, useState } from "react";
 
 const Editor = dynamic(() => import("~/components/editor/editor"), {
   loading: () => <p>Loading...</p>,

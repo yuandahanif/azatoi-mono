@@ -91,7 +91,6 @@ const CustomEditor = {
       { bold: isActive ? undefined : true },
       {
         match: (n) => {
-          console.log("file: editor.tsx:92 ~ toggleBoldMark ~ n:", n);
           return Text.isText(n);
         },
         split: true,
@@ -113,7 +112,8 @@ const RichEditor: React.FC<{
   setValue?: (e: string) => void;
   defaultValue?: Descendant[] | string;
   readonly?: boolean;
-}> = ({ setValue, defaultValue, readonly = false }) => {
+  className?: string;
+}> = ({ setValue, defaultValue, readonly = false, className }) => {
   const initialValue: Descendant[] = useMemo(
     () =>
       ((defaultValue &&
@@ -159,7 +159,7 @@ const RichEditor: React.FC<{
         <Slate editor={editor} value={initialValue}>
           <Editable
             readOnly
-            className=""
+            className={className}
             renderElement={renderElement}
             renderLeaf={renderLeaf}
           />
@@ -201,7 +201,6 @@ const RichEditor: React.FC<{
         </div>
 
         <Editable
-          readOnly
           className="min-h-[300px] bg-white p-3 shadow-sm"
           renderElement={renderElement}
           renderLeaf={renderLeaf}

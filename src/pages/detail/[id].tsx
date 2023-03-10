@@ -10,7 +10,7 @@ import { api } from "~/utils/api";
 import React from "react";
 import Link from "next/link";
 import printToLocalDate from "~/libs/dateFormater";
-import RichEditor, { serialize } from "~/components/editor/editor";
+import RichEditor from "~/components/editor/editor";
 
 const SectionTitle: React.FC<{ children: React.ReactNode }> = ({
   children,

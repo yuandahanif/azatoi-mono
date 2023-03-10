@@ -1,17 +1,8 @@
 /* eslint-disable react/jsx-key */
 import { type NextPage } from "next";
-import styled from "styled-components";
 import { api } from "~/utils/api";
 import SEOHead from "~/components/header/seoHeader";
-import MainLayout from "~/layouts/main";
-import Header from "~/components/header/header";
-import Hero from "~/components/hero/hero";
-import Footer from "~/components/footer/footer";
 import Link from "next/link";
-import Loading from "~/components/loading/loading";
-import ContentCard from "~/components/card/content";
-import Image from "next/image";
-import quicksand from "~/fonts/quicksand";
 import AdminLayout from "~/layouts/admin";
 import { type Column, useTable } from "react-table";
 import { useMemo } from "react";

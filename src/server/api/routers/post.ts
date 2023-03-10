@@ -7,12 +7,17 @@ import {
 } from "~/server/api/trpc";
 
 export const postRouter = createTRPCRouter({
-  getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.post.findMany({
-      include: { Creator: true },
-      orderBy: { created_at: "desc" },
-    });
-  }),
+  getAll: publicProcedure
+    .input(z.object({ count: z.number().optional() }).optional())
+    .query(({ ctx, input }) => {
+      const query = ctx.prisma.post.findMany({
+        include: { Creator: true },
+        orderBy: { created_at: "desc" },
+        take: input?.count,
+      });
+
+      return query;
+    }),
 
   getbyId: publicProcedure
     .input(z.object({ id: z.string() }))

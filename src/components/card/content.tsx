@@ -3,6 +3,7 @@ import Image from "next/image";
 import styled from "styled-components";
 import Link from "next/link";
 import quicksand from "~/fonts/quicksand";
+import RichEditor from "../editor/editor";
 
 const CardContainer = styled.div`
   position: relative;
@@ -59,7 +60,7 @@ const ContentCard: React.FC<Props> = ({ post }) => {
         </span>
       </Link>
       <div>
-        <p className="line-clamp-3">{post.content}</p>
+        
       </div>
     </CardContainer>
   );
