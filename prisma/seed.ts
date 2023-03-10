@@ -8,7 +8,7 @@ async function main() {
     name: t,
   }));
 
-  // await prisma.tag.createMany({ data: tagsData });
+  await prisma.tag.createMany({ data: tagsData });
 
   const user = await prisma.user.upsert({
     create: {
@@ -19,7 +19,7 @@ async function main() {
       emailVerified: null,
     },
     where: {
-      email: "yuan@gmail.com",
+      email: "yuan@admin.com",
     },
     update: {},
   });
@@ -44,16 +44,42 @@ async function main() {
     user_id: user.id,
   });
 
-  // await prisma.post.createMany({ data: posts });
+  await prisma.post.createMany({ data: posts });
 
   const postsDb = await prisma.post.findMany();
 
   const postTags = postsDb.map((p, i) => ({
     post_id: p.id,
-    tag_id: tags[i]?.id ?? "clf01tlgg0000jb84ykj8bgk5", // give it default id after generating tags
+    tag_id: tags[i]?.id ?? tags[0]?.id ?? "", // give it default id after generating tags
   }));
 
   await prisma.postsOnTags.createMany({ data: postTags });
+
+  const links: {
+    name: string;
+    link: string;
+    post_id: string;
+  }[] = [];
+
+  postsDb.forEach((p) => {
+    return links.push({
+      name: "Download",
+      link: "https://youtu.be/GNkPJvVEm0s",
+      post_id: p.id,
+    });
+  });
+
+  postsDb.forEach((p) => {
+    return links.push({
+      name: "Download Part 2",
+      link: "https://youtu.be/TSxs30c4YgY",
+      post_id: p.id,
+    });
+  });
+
+   await prisma.link.createMany({
+    data: links,
+  });
 }
 
 main()
