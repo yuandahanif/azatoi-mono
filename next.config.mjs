@@ -17,6 +17,8 @@ const config = {
       "www.animesenpai.net",
       "dafunda.com",
       "cdn.discordapp.com",
+      "blogger.googleusercontent.com",
+      "media.discordapp.net",
     ],
   },
   /**

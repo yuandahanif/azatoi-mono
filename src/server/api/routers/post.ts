@@ -19,7 +19,11 @@ export const postRouter = createTRPCRouter({
     .query(({ ctx, input }) => {
       return ctx.prisma.post.findFirstOrThrow({
         where: { id: input.id },
-        include: { Creator: true, Tags: { include: { Tag: true } } },
+        include: {
+          Creator: true,
+          Tags: { include: { Tag: true } },
+          Links: true,
+        },
       });
     }),
 
@@ -29,4 +33,42 @@ export const postRouter = createTRPCRouter({
       take: 3,
     });
   }),
+
+  create: protectedProcedure
+    .input(
+      z.object({
+        title: z.string(),
+        description: z.string(),
+        thumbnail: z.string(),
+        categories: z.array(z.string()),
+        links: z.array(z.object({ label: z.string(), link: z.string() })),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      try {
+        const links: { link: string; name: string }[] = [];
+        input.links.forEach((l) => links.push({ link: l.link, name: l.label }));
+
+        const post = await ctx.prisma.post.create({
+          data: {
+            content: input.description,
+            thumbnail: input.thumbnail,
+            title: input.title,
+            Creator: { connect: { id: ctx.session.user.id } },
+            Links: { createMany: { data: links } },
+          },
+          select: { id: true },
+        });
+
+        const tags = input.categories.map((c) => ({
+          post_id: post.id,
+          tag_id: c,
+        }));
+
+        return await ctx.prisma.postsOnTags.createMany({
+          data: tags,
+          skipDuplicates: true,
+        });
+      } catch (error) {}
+    }),
 });

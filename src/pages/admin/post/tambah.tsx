@@ -1,5 +1,4 @@
 import { type NextPage } from "next";
-import styled from "styled-components";
 import { api } from "~/utils/api";
 import SEOHead from "~/components/header/seoHeader";
 import Select from "react-select";
@@ -7,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import AdminLayout from "~/layouts/admin";
 import dynamic from "next/dynamic";
-import { useMemo, useState } from "react";
+import { FormEventHandler, useMemo, useState } from "react";
 
 const Editor = dynamic(() => import("~/components/editor/editor"), {
   loading: () => <p>Loading...</p>,
@@ -16,9 +15,9 @@ const Editor = dynamic(() => import("~/components/editor/editor"), {
 
 const AdminIndex: NextPage = () => {
   const tags = api.tag.getAll.useQuery();
-  const [links, setLinks] = useState([
-    { id: "dontdelete", label: "", value: "" },
-  ]);
+  const postMutation = api.post.create.useMutation();
+  const [links, setLinks] = useState(["dontdelete"]);
+  const [editorValue, setEditorValue] = useState<string | null>(null);
 
   const tagsOptionMemo = useMemo(() => {
     if (tags.data == null) return [];
@@ -29,15 +28,47 @@ const AdminIndex: NextPage = () => {
     setLinks((s) => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
       const id: string = uuidv4();
-      return [...s, { id, label: "", value: "" }];
+      return [...s, id];
     });
   };
 
-  const removeLinks = () => {
+  const removeLinks = (id: string) => {
     setLinks((s) => {
-      s.pop();
-      return [...s];
+      return [...s.filter((l) => l != id)];
     });
+  };
+
+  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    const form = e.target as typeof e.target & {
+      title: { value: string };
+      thumbanil: { value: string };
+      tags: { value: string }[] | HTMLInputElement;
+    };
+
+    let tags: string[] = [];
+    if (form.tags instanceof HTMLInputElement) {
+      tags = [form.tags?.value];
+    } else {
+      form.tags.forEach((t) => tags.push(t.value));
+    }
+
+    if (tags.length == 0) {
+      return alert("Kategori harus di isi.");
+    }
+
+    const data = {
+      title: String(form["title"]?.value),
+      categories: tags,
+      description: editorValue ?? "",
+      links: [{ label: "", link: "" }],
+      thumbnail: String(form["thumbanil"]?.value),
+    };
+
+    console.dir(form.tags);
+    console.dir(data);
+
+    postMutation.mutate(data);
   };
 
   return (
@@ -51,14 +82,37 @@ const AdminIndex: NextPage = () => {
 
         <div className="w-full">
           <span className="text-lg font-medium">Deskripsi</span>
-          <Editor />
+          <Editor setValue={(e) => setEditorValue(e)} />
         </div>
 
-        <form className="mt-4 flex w-full flex-col gap-4">
+        <form onSubmit={onSubmit} className="mt-4 flex w-full flex-col gap-4">
+          <label className="flex w-full flex-col ">
+            <span>Judul:</span>
+            <input
+              required
+              type="text"
+              name={`title`}
+              autoComplete="link-label"
+              className="rounded-md border-none p-2 outline-none"
+            />
+          </label>
+
+          <label className="flex w-full flex-col ">
+            <span>Thumbnail:</span>
+            <input
+              type="url"
+              required
+              name={`thumbanil`}
+              autoComplete="link-label"
+              className="rounded-md border-none p-2 outline-none"
+            />
+          </label>
+
           <label className="flex w-full flex-col">
             <span>Kategori:</span>
             <Select
               isMulti
+              required
               name="tags"
               options={tagsOptionMemo}
               className="basic-multi-select"
@@ -69,27 +123,54 @@ const AdminIndex: NextPage = () => {
           <div>
             <h2 className="text-lg font-medium">Tautan</h2>
 
-            <div className="flex w-full gap-4">
-              <label className="flex w-1/3 flex-col ">
-                <span>Label:</span>
-                <input
-                  type="text"
-                  name="label"
-                  autoComplete="link-label"
-                  className="rounded-md border-none p-2 outline-none"
-                />
-              </label>
+            <div className="flex flex-col gap-2">
+              {links.map((l, i) => (
+                <div
+                  key={l}
+                  className="flex w-full items-center justify-center gap-4"
+                >
+                  <label className="flex w-1/3 flex-col ">
+                    <span>Label:</span>
+                    <input
+                      type="text"
+                      name={`label-${l}`}
+                      autoComplete="link-label"
+                      className="rounded-md border-none p-2 outline-none"
+                    />
+                  </label>
 
-              <label className="flex w-2/3 flex-col">
-                <span>Tatutan:</span>
-                <input
-                  type="text"
-                  name="link"
-                  autoComplete="link-linl"
-                  className="rounded-md border-none p-2 outline-none"
-                />
-              </label>
+                  <label className="flex w-full flex-col">
+                    <span>Tatutan:</span>
+                    <input
+                      type="url"
+                      name={`link-${l}`}
+                      autoComplete="link-linl"
+                      className="rounded-md border-none p-2 outline-none"
+                    />
+                  </label>
+                  {i > 0 && (
+                    <button
+                      type="button"
+                      className="my-auto"
+                      onClick={() => removeLinks(l)}
+                    >
+                      Hapus
+                    </button>
+                  )}
+                </div>
+              ))}
             </div>
+            <div className="mt-1">
+              {
+                <button type="button" onClick={addLinks}>
+                  + Tautan
+                </button>
+              }
+            </div>
+          </div>
+
+          <div className="flex justify-center">
+            <button className="text-xl font-medium">Tambah</button>
           </div>
         </form>
       </AdminLayout>

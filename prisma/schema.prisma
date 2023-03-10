@@ -68,8 +68,8 @@ model VerificationToken {
 
 model Post {
     id         String        @id @default(cuid())
-    title      String
-    thumbnail  String
+    title      String        @db.Text
+    thumbnail  String        @db.Text
     content    String        @db.Text
     view_count Int           @default(0)
     Creator    User          @relation(fields: [user_id], references: [id])

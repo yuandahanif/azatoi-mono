@@ -10,6 +10,7 @@ import { api } from "~/utils/api";
 import React from "react";
 import Link from "next/link";
 import printToLocalDate from "~/libs/dateFormater";
+import RichEditor, { serialize } from "~/components/editor/editor";
 
 const SectionTitle: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -61,7 +62,7 @@ const Detail: NextPage = () => {
                 </div>
 
                 <div>
-                  <p>{post.data.content}</p>
+                  <RichEditor readonly defaultValue={post.data.content} />
                 </div>
 
                 <div className="mt-4">

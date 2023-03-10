@@ -20,6 +20,7 @@
     "@trpc/next": "^10.9.0",
     "@trpc/react-query": "^10.9.0",
     "@trpc/server": "^10.9.0",
+    "escape-html": "^1.0.3",
     "image-extensions": "^1.1.0",
     "is-url": "^1.2.4",
     "next": "^13.2.1",
@@ -30,6 +31,7 @@
     "react-table": "^7.8.0",
     "slate": "^0.91.4",
     "slate-history": "^0.86.0",
+    "slate-hyperscript": "^0.77.0",
     "slate-react": "^0.91.10",
     "styled-components": "^5.3.8",
     "superjson": "1.9.1",
@@ -40,6 +42,7 @@
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/line-clamp": "^0.4.2",
+    "@types/escape-html": "^1.0.2",
     "@types/eslint": "^8.21.1",
     "@types/is-url": "^1.2.30",
     "@types/node": "^18.14.6",

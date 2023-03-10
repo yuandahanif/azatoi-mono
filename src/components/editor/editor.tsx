@@ -5,7 +5,8 @@ import {
   type RenderLeafProps,
   useSlateStatic,
 } from "slate-react";
-import React, { type ChangeEvent, useCallback, useMemo } from "react";
+import escapeHtml from "escape-html";
+import React, { useCallback, useMemo } from "react";
 import {
   type BaseEditor,
   createEditor,
@@ -36,6 +37,7 @@ export type LinkElement = {
 
 export type ImageElement = {
   url: string;
+  readonly: boolean;
   type: "image";
   children: CustomText[];
 };
@@ -108,64 +110,81 @@ const CustomEditor = {
 };
 
 const RichEditor: React.FC<{
-  setValue?: (e: ChangeEvent<HTMLDivElement>) => void;
-  defaultValue?: Descendant[];
-}> = ({ setValue, defaultValue }) => {
-  const initialValue: Descendant[] = [
-    {
-      type: "paragraph",
-      children: [{ text: "" }],
-    },
-  ];
+  setValue?: (e: string) => void;
+  defaultValue?: Descendant[] | string;
+  readonly?: boolean;
+}> = ({ setValue, defaultValue, readonly = false }) => {
+  const initialValue: Descendant[] = useMemo(
+    () =>
+      ((defaultValue &&
+        JSON.parse(defaultValue as string)) as Descendant[]) || [
+        {
+          type: "paragraph",
+          children: [{ text: "" }],
+        },
+      ],
+    [defaultValue]
+  );
 
   const editor = useMemo(
     () => withReact(withImages(withHistory(createEditor()))),
     []
   );
 
-  const renderElement = useCallback((props: RenderElementProps) => {
-    switch (props.element?.type) {
-      case "link":
-        return <LinkElement {...props} />;
-      case "image":
-        return <ImageElement {...props} />;
-      default:
-        return <DefaultElement {...props} />;
-    }
-  }, []);
+  const renderElement = useCallback(
+    (props: RenderElementProps) => {
+      switch (props.element?.type) {
+        case "link":
+          return <LinkElement {...props} />;
+        case "image":
+          return readonly ? (
+            <ImageElementReadOnly {...props} />
+          ) : (
+            <ImageElement {...props} />
+          );
+        default:
+          return <DefaultElement {...props} />;
+      }
+    },
+    [readonly]
+  );
 
   const renderLeaf = useCallback((props: RenderLeafProps) => {
     return <Leaf {...props} />;
   }, []);
 
+  if (readonly) {
+    return (
+      <div className="w-full">
+        <Slate editor={editor} value={initialValue}>
+          <Editable
+            readOnly
+            className=""
+            renderElement={renderElement}
+            renderLeaf={renderLeaf}
+          />
+        </Slate>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-[300px] w-full">
-      <Slate editor={editor} value={defaultValue ?? initialValue}>
-        <div className="mb-2 flex gap-x-4 ml-auto w-full justify-end">
-          {/* <button
-            onMouseDown={(event) => {
-              event.preventDefault();
-              CustomEditor.toggleBoldMark(editor);
-            }}
-          >
-            Bold
-          </button>
+      <Slate
+        editor={editor}
+        value={initialValue}
+        onChange={(value) => {
+          const isAstChange = editor.operations.some(
+            (op) => "set_selection" !== op.type
+          );
 
-          <button
-            onMouseDown={(event) => {
-              event.preventDefault();
-              const url = window.prompt("Tautan:");
-              if (url && !isUrl(url)) {
-                alert("Error: invalid url");
-                return;
-              }
-
-              url && CustomEditor.toggleLink(editor, url);
-            }}
-          >
-            Tautan
-          </button> */}
-
+          if (isAstChange) {
+            const content = JSON.stringify(value);
+            setValue && setValue(content);
+          }
+        }}
+      >
+        <div className="mb-2 ml-auto flex w-full justify-end gap-x-4">
           <button
             onMouseDown={(event) => {
               event.preventDefault();
@@ -182,12 +201,10 @@ const RichEditor: React.FC<{
         </div>
 
         <Editable
+          readOnly
           className="min-h-[300px] bg-white p-3 shadow-sm"
           renderElement={renderElement}
           renderLeaf={renderLeaf}
-          onChange={(value) => {
-            setValue && setValue(value);
-          }}
           onKeyDown={(event) => {
             if (!event.ctrlKey) {
               return;
@@ -209,7 +226,12 @@ const RichEditor: React.FC<{
 
 const insertImage = (editor: Editor, url: string) => {
   const text = { text: "\n" };
-  const image: ImageElement = { type: "image", url, children: [text] };
+  const image: ImageElement = {
+    type: "image",
+    url,
+    children: [text],
+    readonly: false,
+  };
   Transforms.insertNodes(editor, image);
   Transforms.insertNodes(editor, {
     type: "paragraph",
@@ -271,7 +293,6 @@ const ImageElement = ({
     url: "https://media.discordapp.net/attachments/1026030592774639616/1076181300123279511/blob_https___waifus.nemusona.com_b7d54a79-5051-4c26-a0ae-12d732bb384e.png?width=448&height=448",
     type: "image",
   };
-  console.log("file: editor.tsx:267 ~ elm:", elm);
 
   return (
     <div {...attributes}>
@@ -282,12 +303,41 @@ const ImageElement = ({
           className="block h-96 w-fit object-contain focus:shadow-lg"
           alt={elm.url}
         />
-        <button
-          onClick={() => Transforms.removeNodes(editor, { at: path })}
-          className="absolute top-2 left-2 inline-block bg-white text-black"
-        >
-          <span>delete</span>
-        </button>
+        {!elm.readonly && (
+          <button
+            onClick={() => Transforms.removeNodes(editor, { at: path })}
+            className="absolute top-2 left-2 inline-block bg-white text-black"
+          >
+            <span>delete</span>
+          </button>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const ImageElementReadOnly = ({
+  attributes,
+  children,
+  element,
+}: RenderElementProps) => {
+  const editor = useSlateStatic();
+  const path = ReactEditor.findPath(editor, element);
+  const elm: ImageElement = (element as ImageElement) ?? {
+    children: [],
+    url: "https://media.discordapp.net/attachments/1026030592774639616/1076181300123279511/blob_https___waifus.nemusona.com_b7d54a79-5051-4c26-a0ae-12d732bb384e.png?width=448&height=448",
+    type: "image",
+  };
+
+  return (
+    <div {...attributes}>
+      {children}
+      <div contentEditable={false} className="relative">
+        <img
+          src={elm.url}
+          className="block h-96 w-fit object-contain focus:shadow-lg"
+          alt={elm.url}
+        />
       </div>
     </div>
   );
@@ -299,7 +349,6 @@ const DefaultElement = (props: RenderElementProps) => {
 
 const LinkElement = (props: RenderElementProps) => {
   const elm: LinkElement = props.element as LinkElement;
-  console.log("file: editor.tsx:294 ~ LinkElement ~ elm:", elm);
 
   return (
     <a {...props.attributes} className="text-sky-500 underline" href={elm.href}>
