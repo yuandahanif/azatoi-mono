@@ -141,7 +141,7 @@ const RichEditor: React.FC<{
   return (
     <div className="min-h-[500px] w-full">
       <Slate editor={editor} value={defaultValue ?? initialValue}>
-        <div className="mb-2 flex gap-x-4">
+        <div className="mb-2 flex gap-x-4 ml-auto w-full justify-end">
           {/* <button
             onMouseDown={(event) => {
               event.preventDefault();
@@ -182,7 +182,7 @@ const RichEditor: React.FC<{
         </div>
 
         <Editable
-          className="min-h-[500px] bg-yellow-200 p-3 shadow-md"
+          className="min-h-[500px] bg-white p-3 shadow-sm"
           renderElement={renderElement}
           renderLeaf={renderLeaf}
           onChange={(value) => {
