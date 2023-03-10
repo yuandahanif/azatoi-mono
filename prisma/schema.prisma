@@ -77,6 +77,7 @@ model Post {
     updated_at DateTime      @updatedAt
     user_id    String
     Tags       PostsOnTags[]
+    Links      Link[]
 }
 
 model Tag {
@@ -92,4 +93,14 @@ model PostsOnTags {
     tag_id  String // relation scalar field (used in the `@relation` attribute above)
 
     @@id([post_id, tag_id])
+}
+
+model Link {
+    id         String   @id @default(cuid())
+    name       String
+    link       String   @db.Text
+    Post       Post     @relation(fields: [post_id], references: [id])
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+    post_id    String
 }

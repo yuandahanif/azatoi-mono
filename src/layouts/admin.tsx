@@ -52,7 +52,7 @@ const AdminLayout: React.FC<Props> = ({ className, children }) => {
 
   return (
     <>
-      <header className=" sticky top-0 mx-auto flex w-full max-w-screen-xl justify-between bg-white p-3 shadow-md">
+      <header className="z-50 sticky top-0 mx-auto flex w-full max-w-screen-xl justify-between bg-white p-3 shadow-md">
         <div className="flex">
           <nav>
             <ul className="flex gap-2 h-full items-center justify-center">
@@ -88,7 +88,7 @@ const AdminLayout: React.FC<Props> = ({ className, children }) => {
 
       <main
         className={twMerge(
-          `mx-auto h-auto w-full max-w-screen-xl grow bg-white py-3 px-6 text-slate-800 ${quicksand.className}`,
+          `mx-auto h-auto relative overflow-auto w-full max-w-screen-xl grow bg-white py-3 px-6 text-slate-800 ${quicksand.className}`,
           className
         )}
       >
