@@ -46,7 +46,6 @@ const Detail: NextPage = () => {
                   Diposting oleh - {post.data.Creator.name} | pada{" "}
                   {printToLocalDate(post.data.created_at)}
                 </span>
-                <span></span>
               </div>
               <div>
                 <div className="relative my-8 flex h-96 w-full justify-center overflow-hidden rounded-md bg-red-300">
@@ -63,6 +62,23 @@ const Detail: NextPage = () => {
 
                 <div>
                   <RichEditor readonly defaultValue={post.data.content} />
+                </div>
+
+                <div className="mt-4">
+                  <h2 className="text-lg font-semibold">Tautan:</h2>
+
+                  <div className="flex flex-col">
+                    {post.data.Links.map((l) => (
+                      <Link
+                        key={l.id}
+                        href={`/to/${l.id}`}
+                        className="underline"
+                        target="_blank"
+                      >
+                        {l.name}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
 
                 <div className="mt-4">

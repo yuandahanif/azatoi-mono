@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import quicksand from "~/fonts/quicksand";
 import RichEditor from "../editor/editor";
+import printToLocalDate from "~/libs/dateFormater";
 
 const CardContainer = styled.div`
   position: relative;
@@ -49,7 +50,9 @@ const ContentCard: React.FC<Props> = ({ post }) => {
       </div>
 
       <div className="flex justify-end">
-        <span className="ml-auto text-sm">oleh {post?.Creator.name ?? ""}</span>
+        <span className="ml-auto text-sm">
+          {post?.Creator.name ?? ""} | {printToLocalDate(post?.created_at)}
+        </span>
       </div>
 
       <Link href={`/detail/${post.id}`}>
@@ -59,9 +62,7 @@ const ContentCard: React.FC<Props> = ({ post }) => {
           {post.title}
         </span>
       </Link>
-      <div>
-        
-      </div>
+      <div></div>
     </CardContainer>
   );
 };

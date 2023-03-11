@@ -44,6 +44,7 @@ const AdminIndex: NextPage = () => {
       title: { value: string };
       thumbanil: { value: string };
       tags: { value: string }[] | HTMLInputElement;
+      [key: string]: { value: string } | { value: string }[] | HTMLInputElement;
     };
 
     let tags: string[] = [];
@@ -57,11 +58,19 @@ const AdminIndex: NextPage = () => {
       return alert("Kategori harus di isi.");
     }
 
+    const linkdata: { label: string; link: string }[] = [];
+    links.forEach((l) =>
+      linkdata.push({
+        label: (form[`label-${l}`] as { value: string }).value,
+        link: (form[`link-${l}`] as { value: string }).value,
+      })
+    );
+
     const data = {
       title: String(form["title"]?.value),
       categories: tags,
       description: editorValue ?? "",
-      links: [{ label: "", link: "" }],
+      links: linkdata,
       thumbnail: String(form["thumbanil"]?.value),
     };
 

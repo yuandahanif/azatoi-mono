@@ -39,6 +39,20 @@ export const postRouter = createTRPCRouter({
     });
   }),
 
+  addViewCount: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        amount: z.number().default(1),
+      })
+    )
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.post.update({
+        where: { id: input.id },
+        data: { view_count: { increment: input.amount } },
+      });
+    }),
+
   create: protectedProcedure
     .input(
       z.object({
