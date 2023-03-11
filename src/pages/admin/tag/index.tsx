@@ -6,12 +6,11 @@ import Link from "next/link";
 import AdminLayout from "~/layouts/admin";
 import { type Column } from "react-table";
 import { useMemo } from "react";
-import { type Post, type User } from "@prisma/client";
-import printToLocalDate from "~/libs/dateFormater";
+import { type Tag } from "@prisma/client";
 import Table from "~/components/table/table";
 
-const AdminPostIndex: NextPage = () => {
-  const posts = api.post.getAll.useQuery();
+const AdminTabIndex: NextPage = () => {
+  const posts = api.tag.getAllWithCount.useQuery();
 
   const data = useMemo(() => {
     if (!posts.data) return [];
@@ -20,31 +19,28 @@ const AdminPostIndex: NextPage = () => {
 
   const columns = useMemo<
     Column<
-      Post & {
-        Creator: User;
+      Tag & {
+        _count: {
+          Posts: number;
+        };
       }
     >[]
   >(
     () => [
       {
-        Header: "Judul",
-        accessor: "title",
+        Header: "Nama Kategori",
+        accessor: "name",
       },
       {
-        Header: "Pembuat",
-        id: "creator",
-        accessor: "Creator",
-        Cell: (prop) => <span>{prop.value.name}</span>,
-      },
-      {
-        Header: "Tanggal",
-        accessor: "created_at",
-        Cell: (prop) => <span>{printToLocalDate(prop.value)}</span>,
+        Header: "Jumlah Postingan",
+        id: "count",
+        accessor: "id",
+        Cell: (prop) => <span>{prop.row.original._count.Posts}</span>,
       },
       {
         Header: "Aksi",
         accessor: "id",
-        Cell: (prop) => <Link href={`/admin/post/${prop.value}`}>Detail</Link>,
+        Cell: (prop) => <Link href={`/admin/post/${prop.value}`}>Hapus</Link>,
       },
     ],
     []
@@ -58,7 +54,7 @@ const AdminPostIndex: NextPage = () => {
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-semibold">Posting</h1>
           <div>
-            <Link href={`/admin/post/tambah`}>Tambah</Link>
+            <Link href={`/admin/tag/tambah`}>Tambah</Link>
           </div>
         </div>
 
@@ -70,4 +66,4 @@ const AdminPostIndex: NextPage = () => {
   );
 };
 
-export default AdminPostIndex;
+export default AdminTabIndex;

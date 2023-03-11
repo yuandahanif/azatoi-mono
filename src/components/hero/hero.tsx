@@ -69,13 +69,13 @@ const Hero = () => {
   return (
     <div
       ref={containerRef}
-      className="overflow-hidden relative flex h-screen w-auto flex-col items-center justify-center bg-[url('https://blogger.googleusercontent.com/img/a/AVvXsEjpejYXmamsABBcLX25LG4YT2PBM1z7z3TdkkRUzx_uTOg5V7REWWDHjdBM7JrkZ4vKvFjc4fyiWqH1GRXu_Ba7THMVeDBBvtBIVOThcs_ANGtHH-I16rxYFSJzoUqCVvWrXnrxtSnOVtmYgbm3hBqOiil8KEFIZJ6e7ffXGIKGs2uO28k3FeBuYEhdhg=s1408')] bg-cover bg-center bg-no-repeat"
+      className="overflow-hidden relative flex h-screen w-auto flex-col items-center justify-center bg-[url('https://media.discordapp.net/attachments/1015489467534037113/1083986384831909888/Header_1_1.png')] bg-cover bg-center bg-no-repeat"
     >
       <Blob
         ref={blurRef}
         className="rounded-full bg-gradient-to-r from-red-300 to-sky-300 blur-xl"
       />
-      <div className="absolute top-0 left-0 z-20 h-full w-full backdrop-blur-md" />
+      <div className="absolute top-0 left-0 z-20 h-full w-full backdrop-blur-sm" />
 
       <div
         className={`z-20 flex flex-col items-center justify-center text-white ${quicksand.className}`}

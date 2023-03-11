@@ -13,7 +13,7 @@ const Editor = dynamic(() => import("~/components/editor/editor"), {
   ssr: false,
 });
 
-const AdminIndex: NextPage = () => {
+const AdminPostTambah: NextPage = () => {
   const tags = api.tag.getAll.useQuery();
   const postMutation = api.post.create.useMutation();
   const [links, setLinks] = useState(["dontdelete"]);
@@ -187,4 +187,4 @@ const AdminIndex: NextPage = () => {
   );
 };
 
-export default AdminIndex;
+export default AdminPostTambah;
