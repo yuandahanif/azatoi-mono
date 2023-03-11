@@ -8,6 +8,7 @@ import { type Column, useTable } from "react-table";
 import { useMemo } from "react";
 import { type Post, type User } from "@prisma/client";
 import printToLocalDate from "~/libs/dateFormater";
+import Table from "~/components/table/table";
 
 const AdminPostIndex: NextPage = () => {
   const posts = api.post.getAll.useQuery();
@@ -49,14 +50,11 @@ const AdminPostIndex: NextPage = () => {
     []
   );
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data });
-
   return (
     <>
       <SEOHead description="Tujuan pertama buat nyari Fansub - Azatoi" />
 
-      <AdminLayout className="h-screen w-full bg-slate-300">
+      <AdminLayout className="w-full">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-semibold">Posting</h1>
           <div>
@@ -65,51 +63,7 @@ const AdminPostIndex: NextPage = () => {
         </div>
 
         <div className="mt-5 flex flex-col">
-          <table {...getTableProps()} className="">
-            <thead>
-              {headerGroups.map((headerGroup) => (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column) => (
-                    <th
-                      {...column.getHeaderProps()}
-                      style={{
-                        borderBottom: "solid 3px red",
-                        background: "aliceblue",
-                        color: "black",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      {column.render("Header")}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-
-            <tbody {...getTableBodyProps()}>
-              {rows.map((row) => {
-                prepareRow(row);
-                return (
-                  <tr {...row.getRowProps()}>
-                    {row.cells.map((cell) => {
-                      return (
-                        <td
-                          {...cell.getCellProps()}
-                          style={{
-                            padding: "10px",
-                            border: "solid 1px gray",
-                            background: "papayawhip",
-                          }}
-                        >
-                          {cell.render("Cell")}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <Table columns={columns} data={data} />
         </div>
       </AdminLayout>
     </>

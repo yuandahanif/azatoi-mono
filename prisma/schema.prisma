@@ -87,9 +87,9 @@ model Tag {
 }
 
 model PostsOnTags {
-    Post    Post   @relation(fields: [post_id], references: [id])
+    Post    Post   @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
     post_id String // relation scalar field (used in the `@relation` attribute above)
-    Tag     Tag    @relation(fields: [tag_id], references: [id])
+    Tag     Tag    @relation(fields: [tag_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
     tag_id  String // relation scalar field (used in the `@relation` attribute above)
 
     @@id([post_id, tag_id])
@@ -99,7 +99,7 @@ model Link {
     id         String   @id @default(cuid())
     name       String
     link       String   @db.Text
-    Post       Post     @relation(fields: [post_id], references: [id])
+    Post       Post     @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
     created_at DateTime @default(now())
     updated_at DateTime @updatedAt
     post_id    String

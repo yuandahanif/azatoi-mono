@@ -48,9 +48,9 @@ const Detail: NextPage = () => {
                 </span>
               </div>
               <div>
-                <div className="relative my-8 flex h-96 w-full justify-center overflow-hidden rounded-md bg-red-300">
+                <div className="relative my-8 flex h-96 w-full justify-center overflow-hidden rounded-md">
                   <Image
-                    className="object-cover object-center"
+                    className="object-contain object-center"
                     src={post.data.thumbnail}
                     alt={post.data.title}
                     loading="lazy"

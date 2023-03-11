@@ -52,12 +52,12 @@ const AdminLayout: React.FC<Props> = ({ className, children }) => {
 
   return (
     <>
-      <header className="z-50 sticky top-0 mx-auto flex w-full max-w-screen-xl justify-between bg-white p-3 shadow-md">
+      <header className="sticky top-0 z-50 mx-auto flex w-full max-w-screen-xl justify-between bg-white p-3 shadow-md">
         <div className="flex">
           <nav>
-            <ul className="flex gap-2 h-full items-center justify-center">
+            <ul className="flex h-full items-center justify-center gap-2">
               {NAV_MENU.map((m) => (
-                <li key={m.id} className="h-full flex items-center p-2 pr-4">
+                <li key={m.id} className="flex h-full items-center p-2 pr-4">
                   <Link href={m.href}>{m.label}</Link>
                 </li>
               ))}
@@ -65,7 +65,7 @@ const AdminLayout: React.FC<Props> = ({ className, children }) => {
           </nav>
         </div>
 
-        <div className="flex">
+        <div className="flex overflow-y-visible">
           <div className="relative h-14 w-14 overflow-hidden rounded-full">
             <Image
               className="object-contain"
@@ -88,7 +88,7 @@ const AdminLayout: React.FC<Props> = ({ className, children }) => {
 
       <main
         className={twMerge(
-          `mx-auto h-auto relative overflow-auto w-full max-w-screen-xl grow bg-white py-3 px-6 text-slate-800 ${quicksand.className}`,
+          `relative mx-auto h-auto w-full max-w-screen-xl grow overflow-y-visible bg-slate-300 py-3 px-6 text-slate-800 ${quicksand.className}`,
           className
         )}
       >

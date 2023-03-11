@@ -84,7 +84,7 @@ const AdminIndex: NextPage = () => {
     <>
       <SEOHead description="Tujuan pertama buat nyari Fansub - Azatoi" />
 
-      <AdminLayout className="h-screen w-full bg-slate-300">
+      <AdminLayout className="w-full">
         <h1 className="text-4xl font-semibold text-slate-700">
           Buat Postingan
         </h1>
@@ -178,7 +178,7 @@ const AdminIndex: NextPage = () => {
             </div>
           </div>
 
-          <div className="flex justify-center">
+          <div className="flex justify-center border-t border-slate-700 mt-4 pt-5">
             <button className="text-xl font-medium">Tambah</button>
           </div>
         </form>
