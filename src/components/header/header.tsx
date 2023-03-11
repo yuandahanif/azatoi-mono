@@ -27,7 +27,7 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 left-0 right-0 z-50  bg-black p-8 text-white">
+    <header className="sticky top-0 left-0 right-0 z-50  bg-[#332041] p-8 text-white">
       <div className="mx-auto flex max-w-screen-xl justify-between">
         <div>
           <Link href="/">
@@ -39,7 +39,10 @@ const Header = () => {
           <ul className="hidden gap-x-6 font-semibold md:flex">
             {HEADER_LINKS.map((l) => (
               <li key={l.id}>
-                <Link href={l.href}>
+                <Link
+                  href={l.href}
+                  className="inline-flex"
+                >
                   <span>{l.label}</span>
                 </Link>
               </li>

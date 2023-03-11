@@ -8,12 +8,17 @@ import {
 
 export const postRouter = createTRPCRouter({
   getAll: publicProcedure
-    .input(z.object({ count: z.number().optional() }).optional())
+    .input(
+      z
+        .object({ count: z.number().optional(), skip: z.number().optional() })
+        .optional()
+    )
     .query(({ ctx, input }) => {
       const query = ctx.prisma.post.findMany({
         include: { Creator: true },
         orderBy: { created_at: "desc" },
         take: input?.count,
+        skip: input?.skip,
       });
 
       return query;
@@ -38,6 +43,19 @@ export const postRouter = createTRPCRouter({
       take: 3,
     });
   }),
+
+  gdtByTitle: publicProcedure
+    .input(
+      z.object({
+        title: z.string(),
+      })
+    )
+    .query(({ ctx, input }) => {
+      return ctx.prisma.post.findMany({
+        orderBy: { created_at: "desc" },
+        where: { title: { contains: input.title } },
+      });
+    }),
 
   addViewCount: publicProcedure
     .input(

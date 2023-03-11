@@ -4,32 +4,53 @@ import { api } from "~/utils/api";
 import SEOHead from "~/components/header/seoHeader";
 import MainLayout from "~/layouts/main";
 import Header from "~/components/header/header";
-import Hero from "~/components/hero/hero";
 import Footer from "~/components/footer/footer";
 import Link from "next/link";
 import Loading from "~/components/loading/loading";
 import ContentCard from "~/components/card/content";
 import Image from "next/image";
 import quicksand from "~/fonts/quicksand";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import SearchSection from "~/components/search/search";
 
 const MoreButton = styled.button``;
 
-const Home: NextPage = () => {
-  const posts = api.post.getAll.useQuery({ count: 12 });
+const ITEM_COUNT = 12;
+
+const All: NextPage = () => {
+  const router = useRouter();
+  const { page } = router.query;
+  const [skipPage, setSkipPage] = useState<number | undefined>(undefined);
+
+  const posts = api.post.getAll.useQuery({
+    count: ITEM_COUNT,
+    skip: skipPage ? skipPage * ITEM_COUNT : undefined,
+  });
+
+  useEffect(() => {
+    if (page) {
+      try {
+        setSkipPage(Number(page));
+      } catch (error) {
+        setSkipPage(0);
+      }
+    } else {
+      setSkipPage(0);
+    }
+  }, [page]);
 
   return (
     <>
       <SEOHead description="Tujuan pertama buat nyari Fansub - Azatoi" />
       <Header />
-      <Hero />
 
-      <MainLayout>
+      <MainLayout className="">
         <div
-          className={`mb-6 mt-10 flex w-full flex-col items-center justify-center text-slate-800 `}
+          className={`mb-6 mt-10 flex w-full flex-col items-center justify-center text-slate-800`}
         >
           <span className="text-4xl font-semibold">Rilis Terbaru</span>
-          <span>12 Rilis Terbaru</span>
+          {page}
         </div>
 
         {posts.isLoading && <Loading />}
@@ -43,25 +64,27 @@ const Home: NextPage = () => {
                 ))}
               </>
             </div>
-            <div className="mt-8 flex justify-center">
-              <Link href="/all">
-                <MoreButton
-                  type="button"
-                  className="rounded-md border border-slate-500 bg-white p-3"
-                >
-                  Tampilkan lainnya
-                </MoreButton>
-              </Link>
-            </div>
+
+            {posts.data.length == ITEM_COUNT && (
+              <div className="mt-8 flex justify-center">
+                <Link href={`/all?page=${skipPage ? skipPage + 1 : 1}`}>
+                  <MoreButton
+                    type="button"
+                    className="rounded-md border border-slate-500 bg-white p-3"
+                  >
+                    Tampilkan lainnya
+                  </MoreButton>
+                </Link>
+              </div>
+            )}
           </>
         )}
       </MainLayout>
 
       <SearchSection />
-
       <Footer />
     </>
   );
 };
 
-export default Home;
+export default All;

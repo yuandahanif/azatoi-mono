@@ -69,22 +69,22 @@ const Hero = () => {
   return (
     <div
       ref={containerRef}
-      className="overflow-hidden relative flex h-screen w-auto flex-col items-center justify-center bg-[url('https://media.discordapp.net/attachments/1015489467534037113/1083986384831909888/Header_1_1.png')] bg-cover bg-center bg-no-repeat"
+      className="overflow-hidden relative flex h-[50vh] md:h-screen w-auto flex-col items-center justify-center bg-[url('/assets/header.png')] bg-contain md:bg-cover bg-top bg-right md:bg-center bg-no-repeat"
     >
-      <Blob
+      {/* <Blob
         ref={blurRef}
         className="rounded-full bg-gradient-to-r from-red-300 to-sky-300 blur-xl"
-      />
-      <div className="absolute top-0 left-0 z-20 h-full w-full backdrop-blur-sm" />
+      /> */}
+      {/* <div className="absolute top-0 left-0 z-20 h-full w-full backdrop-blur-sm" /> */}
 
-      <div
+      {/* <div
         className={`z-20 flex flex-col items-center justify-center text-white ${quicksand.className}`}
       >
         <H1 className=" text-7xl font-bold md:text-9xl" aria-label="AZATOI">
           AZATOI
         </H1>
         <Span className="text-xl md:text-2xl ">Fansub Tanjakan 48</Span>
-      </div>
+      </div> */}
     </div>
   );
 };

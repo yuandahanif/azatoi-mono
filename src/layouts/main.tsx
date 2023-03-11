@@ -7,13 +7,15 @@ interface Props {
 }
 
 const MainLayout: React.FC<Props> = ({ className, children }) => (
-  <main
-    className={twMerge(
-      `mx-auto h-auto w-full max-w-screen-xl grow bg-white py-6 px-2 text-slate-800 ${quicksand.className}`,
-      className
-    )}
-  >
-    {children}
-  </main>
+  <div className="flex bg-[#fff]">
+    <main
+      className={twMerge(
+        `mx-auto h-auto w-full max-w-screen-xl grow bg-inherit py-6 px-2 text-slate-800 ${quicksand.className}`,
+        className
+      )}
+    >
+      {children}
+    </main>
+  </div>
 );
 export default MainLayout;

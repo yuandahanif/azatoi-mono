@@ -18,7 +18,7 @@ const CardContainer = styled.div`
     width: 100%;
     height: 100%;
     transform: rotate(0deg) scale(1);
-    border: 2px solid rgb(252, 165, 165);
+    border: 2px solid #4c2e60;
     /* background-color: ; */
     z-index: -1;
     border-radius: 0.375rem;
@@ -38,7 +38,7 @@ interface Props {
 
 const ContentCard: React.FC<Props> = ({ post }) => {
   return (
-    <CardContainer className="rounded-md border-2 border-red-300 bg-white p-3">
+    <CardContainer className="rounded-md border-2 border-[#4c2e60] bg-[#fff] p-3 text-slate-700">
       <div className="relative mb-4 flex h-56 w-full justify-center">
         <Image
           className="object-cover object-center"
