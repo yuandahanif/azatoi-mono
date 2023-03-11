@@ -67,15 +67,29 @@ const Detail: NextPage = () => {
                 <div className="mt-4">
                   <h2 className="text-lg font-semibold">Tautan:</h2>
 
-                  <div className="flex flex-col">
+                  <div className="flex gap-2">
                     {post.data.Links.map((l) => (
                       <Link
                         key={l.id}
                         href={`/to/${l.id}`}
-                        className="underline"
+                        className="rounded-md bg-[#E98EAD] hover:bg-opacity-90 duration-200 px-3 py-1 text-white flex items-center gap-2"
                         target="_blank"
                       >
-                        {l.name}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="h-4 w-4"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
+                          />
+                        </svg>
+                        <span>{l.name}</span>
                       </Link>
                     ))}
                   </div>
@@ -161,12 +175,12 @@ const Detail: NextPage = () => {
                     <Link key={t.id} href={`/tag/${t.id}`}>
                       <button
                         type="button"
-                        className="group rounded-sm bg-slate-200 p-1 px-2 duration-300 hover:bg-sky-600 hover:text-white"
+                        className="group rounded-sm bg-slate-200 p-1 px-2 duration-300 hover:bg-[#E98EAD] hover:text-white"
                         key={t.id}
                       >
                         <span>{t.name}</span>
 
-                        <span className="ml-2 flex-initial bg-slate-300 px-1 group-hover:bg-sky-800">
+                        <span className="ml-2 flex-initial bg-slate-300 px-1 group-hover:bg-[#E98EAD] hover:bg-opacity-60">
                           {t._count.Posts}
                         </span>
                       </button>

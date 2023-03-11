@@ -1,10 +1,11 @@
+import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
 
 const HEADER_LINKS = [
   { id: 1, href: "/", label: "Home" },
   { id: 2, href: "/", label: "Project dan Donasi" },
-  { id: 3, href: "/", label: "Blog Member" },
+  { id: 3, href: "/", label: "Team" },
   { id: 4, href: "/", label: "Lapor Link Rusak" },
 ];
 
@@ -27,22 +28,27 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 left-0 right-0 z-50  bg-[#332041] p-8 text-white">
+    <header className="sticky top-0 left-0 right-0 z-50 px-4  bg-[#332041] text-white">
       <div className="mx-auto flex max-w-screen-xl justify-between">
         <div>
           <Link href="/">
-            <span>Logo</span>
+            <div className="relative h-20 w-20">
+              <Image
+                className="object-contain object-center"
+                src="/assets/logo.png"
+                alt="logo"
+                loading="lazy"
+                fill
+              />
+            </div>
           </Link>
         </div>
 
-        <nav>
+        <nav className="flex items-center">
           <ul className="hidden gap-x-6 font-semibold md:flex">
             {HEADER_LINKS.map((l) => (
               <li key={l.id}>
-                <Link
-                  href={l.href}
-                  className="inline-flex"
-                >
+                <Link href={l.href} className="inline-flex">
                   <span>{l.label}</span>
                 </Link>
               </li>

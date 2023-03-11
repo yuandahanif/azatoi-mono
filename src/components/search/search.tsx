@@ -4,7 +4,7 @@ import quicksand from "~/fonts/quicksand";
 const SearchSection = () => {
   return (
     <div
-      className={`flex h-96 items-center justify-center gap-8 bg-[#332041] ${quicksand.className}`}
+      className={`flex h-96 items-center justify-center gap-8 bg-[#332041]  bg-[url('/assets/search.png')] bg-cover ${quicksand.className}`}
     >
       <div>
         <form className="flex flex-col items-center gap-y-3">
@@ -12,7 +12,7 @@ const SearchSection = () => {
             htmlFor="search-input"
             className="text-xl font-semibold text-[#fff]"
           >
-            Nyari rilisan ya?
+            Nyari siapa ya?
           </label>
 
           <input
@@ -25,20 +25,11 @@ const SearchSection = () => {
 
           <button
             type="submit"
-            className="w-fit rounded-md bg-sky-500 p-2 px-8 text-white"
+            className="w-fit rounded-md bg-[#E98EAD] p-2 px-8 text-white"
           >
             cari
           </button>
         </form>
-      </div>
-
-      <div className="relative h-72 w-72">
-        <Image
-          src={"/assets/asukalayer1.png"}
-          alt="figure cari"
-          className="object-contain"
-          fill
-        />
       </div>
     </div>
   );

@@ -29,7 +29,7 @@ const Redirector = () => {
 
   return (
     <div
-      className={`flex h-screen w-full items-center justify-center bg-red-300 text-4xl font-semibold text-white ${quicksand.className}`}
+      className={`flex h-screen w-full items-center justify-center bg-[#332041] text-4xl font-semibold text-white ${quicksand.className}`}
     >
       Mohon tunggu
     </div>

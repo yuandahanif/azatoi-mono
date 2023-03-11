@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import AdminLayout from "~/layouts/admin";
 import dynamic from "next/dynamic";
 import { type FormEventHandler, useMemo, useState } from "react";
+import { useRouter } from "next/router";
 
 const Editor = dynamic(() => import("~/components/editor/editor"), {
   loading: () => <p>Loading...</p>,
@@ -14,6 +15,7 @@ const Editor = dynamic(() => import("~/components/editor/editor"), {
 });
 
 const AdminPostTambah: NextPage = () => {
+  const router = useRouter();
   const tags = api.tag.getAll.useQuery();
   const postMutation = api.post.create.useMutation();
   const [links, setLinks] = useState(["dontdelete"]);
@@ -77,7 +79,17 @@ const AdminPostTambah: NextPage = () => {
     console.dir(form.tags);
     console.dir(data);
 
-    postMutation.mutate(data);
+    postMutation
+      .mutateAsync(data)
+      .then(() => {
+        alert("Berhasil");
+        void router.replace("/admin/post");
+      })
+      .catch((e: unknown) => {
+        console.error(e);
+
+        alert("gagal");
+      });
   };
 
   return (
@@ -178,7 +190,7 @@ const AdminPostTambah: NextPage = () => {
             </div>
           </div>
 
-          <div className="flex justify-center border-t border-slate-700 mt-4 pt-5">
+          <div className="mt-4 flex justify-center border-t border-slate-700 pt-5">
             <button className="text-xl font-medium">Tambah</button>
           </div>
         </form>
