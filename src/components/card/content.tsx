@@ -3,7 +3,6 @@ import Image from "next/image";
 import styled from "styled-components";
 import Link from "next/link";
 import quicksand from "~/fonts/quicksand";
-import RichEditor from "../editor/editor";
 import printToLocalDate from "~/libs/dateFormater";
 
 const CardContainer = styled.div`
