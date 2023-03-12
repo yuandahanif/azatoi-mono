@@ -1,4 +1,4 @@
-import { type NextPage } from "next";
+import { GetStaticProps, type NextPage } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Footer from "~/components/footer/footer";
@@ -142,8 +142,7 @@ const Detail: NextPage = () => {
 
               <iframe
                 src="https://stream.trakteer.id/top-supporter-default.html?ts_font=Play&ts_count=10&ts_theme=default&ts_1_clr2=rgba%28255%2C+137%2C+214%2C+1%29&ts_1_clr3=rgba%28255%2C+221%2C+240%2C+1%29&ts_1_clr4=rgba%28255%2C+241%2C+249%2C+1%29&ts_sortby=unit&ts_interval=30&ts_customtitle=Top+Azatoi+Supporter&ts_customsubtitle=-&key=trstream-qQUWOUmRp37cRZgBng6q"
-                frameBorder="0"
-                className="w-full"
+                className="w-full min-h-[20em]"
               ></iframe>
             </div>
           </div>
