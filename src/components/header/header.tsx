@@ -3,10 +3,15 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 
 const HEADER_LINKS = [
-  { id: 1, href: "/", label: "Home" },
-  { id: 2, href: "/", label: "Project dan Donasi" },
-  { id: 3, href: "/", label: "Team" },
-  { id: 4, href: "/", label: "Lapor Link Rusak" },
+  { id: 1, href: "/", label: "Home", props: {} },
+  {
+    id: 2,
+    href: "https://trakteer.id/azatoionline",
+    props: { target: "_blank" },
+    label: "Project dan Donasi",
+  },
+  { id: 3, href: "/", label: "Team", props: {} },
+  { id: 4, href: "/", label: "Lapor Link Rusak", props: {} },
 ];
 
 const Header = () => {
@@ -28,7 +33,7 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 left-0 right-0 z-50 px-4  bg-[#332041] text-white">
+    <header className="sticky top-0 left-0 right-0 z-50 bg-[#332041]  px-4 text-white">
       <div className="mx-auto flex max-w-screen-xl justify-between">
         <div>
           <Link href="/">
@@ -48,7 +53,7 @@ const Header = () => {
           <ul className="hidden gap-x-6 font-semibold md:flex">
             {HEADER_LINKS.map((l) => (
               <li key={l.id}>
-                <Link href={l.href} className="inline-flex">
+                <Link href={l.href} className="inline-flex" {...l.props}>
                   <span>{l.label}</span>
                 </Link>
               </li>
@@ -100,7 +105,7 @@ const Header = () => {
             >
               {HEADER_LINKS.map((l) => (
                 <li key={l.id}>
-                  <Link href={l.href}>
+                  <Link href={l.href} {...l.props}>
                     <span className="text-xl">{l.label}</span>
                   </Link>
                 </li>

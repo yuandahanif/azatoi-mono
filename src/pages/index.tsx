@@ -9,8 +9,6 @@ import Footer from "~/components/footer/footer";
 import Link from "next/link";
 import Loading from "~/components/loading/loading";
 import ContentCard from "~/components/card/content";
-import Image from "next/image";
-import quicksand from "~/fonts/quicksand";
 import SearchSection from "~/components/search/search";
 
 const MoreButton = styled.button``;
@@ -28,8 +26,8 @@ const Home: NextPage = () => {
         <div
           className={`mb-6 mt-10 flex w-full flex-col items-center justify-center text-slate-800 `}
         >
-          <span className="text-4xl font-semibold">Rilis Terbaru</span>
-          <span>12 Rilis Terbaru</span>
+          {/* <span className="text-4xl font-semibold">Rilis Terbaru</span>
+          <span>12 Rilis Terbaru</span> */}
         </div>
 
         {posts.isLoading && <Loading />}
