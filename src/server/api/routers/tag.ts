@@ -21,10 +21,32 @@ export const tagRouter = createTRPCRouter({
   }),
 
   getPostsByTagId: publicProcedure
-    .input(z.object({ id: z.string() }))
+    .input(
+      z.object({
+        id: z.string(),
+        take: z.number().optional().default(12),
+        skip: z.number().optional().default(0),
+      })
+    )
+    .query(({ ctx, input }) => {
+      return ctx.prisma.post.findMany({
+        where: { Tags: { some: { tag_id: { equals: input.id } } } },
+        include: { Creator: true },
+        orderBy: { created_at: "desc" },
+        take: input.take,
+        skip: input.skip,
+      });
+    }),
+
+  getById: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
     .query(({ ctx, input }) => {
       return ctx.prisma.tag.findFirstOrThrow({
-        where: { Posts: { every: { post_id: { equals: input.id } } } },
+        where: { id: input.id },
       });
     }),
 
@@ -39,6 +61,6 @@ export const tagRouter = createTRPCRouter({
   delete: protectedProcedure
     .input(z.object({ id: z.string() }))
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.tag.delete({where: {id: input.id}})
+      return ctx.prisma.tag.delete({ where: { id: input.id } });
     }),
 });

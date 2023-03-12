@@ -18,13 +18,24 @@ const ITEM_COUNT = 12;
 
 const All: NextPage = () => {
   const router = useRouter();
-  const { page } = router.query;
+  const { page, id } = router.query;
   const [skipPage, setSkipPage] = useState<number | undefined>(undefined);
 
-  const posts = api.post.getAll.useQuery({
-    count: ITEM_COUNT,
-    skip: skipPage ? skipPage * ITEM_COUNT : undefined,
-  });
+  const posts = api.tag.getPostsByTagId.useQuery(
+    {
+      id: String(id),
+      take: 12,
+      skip: skipPage ? skipPage * ITEM_COUNT : undefined,
+    },
+    { enabled: id != null }
+  );
+
+  const tag = api.tag.getById.useQuery(
+    {
+      id: String(id),
+    },
+    { enabled: id != null }
+  );
 
   useEffect(() => {
     if (page) {
@@ -45,10 +56,10 @@ const All: NextPage = () => {
 
       <MainLayout className="">
         <div
-          className={`mb-6 mt-10 flex w-full flex-col items-center justify-center text-slate-800`}
+          className={`mb-6 mt-10 flex w-full flex-col items-center justify-center gap-y-2 text-slate-800`}
         >
-          <span className="text-4xl font-semibold">Semua Rilisan</span>
-          {page}
+          <span className="text-4xl font-semibold">Kategori</span>
+          {tag.isSuccess && <span>{tag.data.name}</span>}
         </div>
 
         {posts.isLoading && <Loading />}

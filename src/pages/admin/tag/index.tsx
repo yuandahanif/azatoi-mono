@@ -5,7 +5,7 @@ import SEOHead from "~/components/header/seoHeader";
 import Link from "next/link";
 import AdminLayout from "~/layouts/admin";
 import { type Column } from "react-table";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { type Tag } from "@prisma/client";
 import Table from "~/components/table/table";
 
@@ -18,7 +18,7 @@ const AdminTabIndex: NextPage = () => {
     return tags.data;
   }, [tags.data]);
 
-  const deletePost = (id: string) => {
+  const deletePost = useCallback((id: string) => {
     if (confirm("hapus ?")) {
       console.log("delete");
       tagDeleteMutation
@@ -32,7 +32,7 @@ const AdminTabIndex: NextPage = () => {
           alert("gagal");
         });
     }
-  };
+  }, []);
 
   const columns = useMemo<
     Column<
@@ -64,7 +64,7 @@ const AdminTabIndex: NextPage = () => {
         ),
       },
     ],
-    []
+    [deletePost]
   );
 
   return (

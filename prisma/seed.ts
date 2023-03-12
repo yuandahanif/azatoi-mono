@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 
 const TAGS = ["Album", "Drama", "Live Concert", "Movie"];
 
-const content = `[{"type":"paragraph","children":[{"text":"   Selamat datang kembali di KinoKonoka Subs:)"}]},{"type":"paragraph","children":[{"text":""}]},{"type":"paragraph","children":[{"text":"Kali ini ada Hinatazaka de Aimashou Episode 176, Segmen khusus Higashimura!"}]},{"type":"paragraph","children":[{"text":""}]},{"type":"paragraph","children":[{"text":""}]},{"type":"image","url":"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjSzr2YyjnOQ0HiJCeya5CPMDuvBCVTJXlp725NJpMANMyEUv-oR1qXlv6eIT_-QLBx0fTYQTnX--Ks5RPxql-aWfuFBMEvI42K_S5N5usuSjYPGKXrHcotXdCNUstfU6DiWQciT2QYR5HPYKwVvnVxyp6H8cK8dgcs9CKU357DrCbZPsKQHe6LGl9NzA/s320/WhatsApp%20Image%202022-11-07%20at%208.55.22%20PM.jpeg","children":[{"text":"\n"}]},{"type":"paragraph","children":[{"text":""}]},{"type":"paragraph","children":[{"text":""}]},{"type":"paragraph","children":[{"text":"Di episode kali ini ada segment khusus untuk Higashimura Mei, mari kita saksikan keseruan para member mempromosikan keunikan Mei "}]},{"type":"paragraph","children":[{"text":""}]},{"type":"paragraph","children":[{"text":""}]},{"type":"paragraph","children":[{"text":"     TL : by MinPanda "}]},{"type":"paragraph","children":[{"text":"    (Min Kino masih hiatus dikarenakan perangkat untuk mengesub sedang rusak dan kesibukan lainnya)"}]}]`;
+const content = `[{"type":"paragraph","children":[{"text":"Episode perdana gen 3 di sokosaku. 3 member baru Sakurazaka46 akan dikenalkan oleh para Senpai."}]}]`;
 
 async function main() {
   const tagsData = TAGS.map((t) => ({

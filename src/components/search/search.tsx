@@ -7,7 +7,11 @@ const SearchSection = () => {
       className={`flex h-96 items-center justify-center gap-8 bg-[#332041]  bg-[url('/assets/search.png')] bg-cover ${quicksand.className}`}
     >
       <div>
-        <form className="flex flex-col items-center gap-y-3">
+        <form
+          className="flex flex-col items-center gap-y-3"
+          method="'GET"
+          action="/search"
+        >
           <label
             htmlFor="search-input"
             className="text-xl font-semibold text-[#fff]"
@@ -17,6 +21,7 @@ const SearchSection = () => {
 
           <input
             type={"text"}
+            name="title"
             id="search-input"
             className="rounded-md border-none p-3 outline-none md:w-96"
             autoComplete="series"

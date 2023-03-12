@@ -11,6 +11,7 @@ import React from "react";
 import Link from "next/link";
 import printToLocalDate from "~/libs/dateFormater";
 import RichEditor from "~/components/editor/editor";
+import ErrorData from "~/components/error/error_data";
 
 const SectionTitle: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -38,6 +39,7 @@ const Detail: NextPage = () => {
       <MainLayout className="flex min-h-screen flex-col md:flex-row">
         <article className="w-full">
           {post.isLoading && <Loading />}
+          {post.isError && <ErrorData />}
           {post.isSuccess && (
             <>
               <h1 className="text-3xl font-semibold">{post.data?.title}</h1>
@@ -103,7 +105,7 @@ const Detail: NextPage = () => {
                         <Link href={`/tag/${t.tag_id}`}>
                           <button
                             type="button"
-                            className="rounded-sm bg-slate-200 p-1 px-2 duration-300 hover:bg-sky-600 hover:text-white"
+                            className="rounded-sm bg-slate-200 p-1 px-2 duration-300 hover:bg-[#E98EAD] hover:text-white"
                           >
                             {t.Tag.name}
                           </button>
@@ -120,11 +122,38 @@ const Detail: NextPage = () => {
         <aside className="w-full space-y-6 pt-8 md:sticky md:top-24 md:h-fit md:max-w-md md:p-3">
           <div>
             <SectionTitle>
-              <h2>Popular Posts</h2>
+              <h2>Donasi</h2>
+            </SectionTitle>
+
+            <div className="flex flex-col items-center justify-center gap-y-1 pt-4">
+              <a
+                href="https://trakteer.id/azatoionline"
+                target="_blank"
+                className="relative inline-block h-10 w-40"
+              >
+                <Image
+                  fill
+                  id="wse-buttons-preview"
+                  src="https://cdn.trakteer.id/images/embed/trbtn-red-1.png"
+                  alt="Trakteer Saya"
+                  className="object-contain"
+                />
+              </a>
+
+              <iframe
+                src="https://stream.trakteer.id/top-supporter-default.html?ts_font=Play&ts_count=10&ts_theme=default&ts_1_clr2=rgba%28255%2C+137%2C+214%2C+1%29&ts_1_clr3=rgba%28255%2C+221%2C+240%2C+1%29&ts_1_clr4=rgba%28255%2C+241%2C+249%2C+1%29&ts_sortby=unit&ts_interval=30&ts_customtitle=Top+Azatoi+Supporter&ts_customsubtitle=-&key=trstream-qQUWOUmRp37cRZgBng6q"
+                frameBorder="0"
+                className="w-full"
+              ></iframe>
+            </div>
+          </div>
+
+          <div>
+            <SectionTitle>
+              <h2>Populer</h2>
             </SectionTitle>
 
             {popularPost.isLoading && <Loading />}
-            {popularPost.isError && <div>error</div>}
 
             {popularPost.isSuccess && (
               <>
@@ -153,34 +182,6 @@ const Detail: NextPage = () => {
                 </article>
               </>
             )}
-          </div>
-
-          <div>
-            <SectionTitle>
-              <h2>Donasi</h2>
-            </SectionTitle>
-
-            <div className="flex flex-col items-center justify-center pt-4">
-              <a
-                href="https://trakteer.id/azatoionline"
-                target="_blank"
-                className="relative inline-block h-10 w-40"
-              >
-                <Image
-                  fill
-                  id="wse-buttons-preview"
-                  src="https://cdn.trakteer.id/images/embed/trbtn-red-1.png"
-                  alt="Trakteer Saya"
-                  className="object-contain"
-                />
-              </a>
-
-              <iframe
-                src="https://stream.trakteer.id/top-supporter-default.html?ts_font=Play&ts_count=10&ts_theme=default&ts_1_clr2=rgba%28255%2C+137%2C+214%2C+1%29&ts_1_clr3=rgba%28255%2C+221%2C+240%2C+1%29&ts_1_clr4=rgba%28255%2C+241%2C+249%2C+1%29&ts_sortby=unit&ts_interval=30&ts_customtitle=Top+Azatoi+Supporter&ts_customsubtitle=-&key=trstream-qQUWOUmRp37cRZgBng6q"
-                frameBorder="0"
-                className="w-full"
-              ></iframe>
-            </div>
           </div>
 
           <div>
