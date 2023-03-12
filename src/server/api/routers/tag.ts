@@ -35,4 +35,10 @@ export const tagRouter = createTRPCRouter({
         data: { name: input.name },
       });
     }),
+
+  delete: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.tag.delete({where: {id: input.id}})
+    }),
 });

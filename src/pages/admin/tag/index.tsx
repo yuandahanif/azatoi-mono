@@ -10,12 +10,29 @@ import { type Tag } from "@prisma/client";
 import Table from "~/components/table/table";
 
 const AdminTabIndex: NextPage = () => {
-  const posts = api.tag.getAllWithCount.useQuery();
+  const tags = api.tag.getAllWithCount.useQuery();
+  const tagDeleteMutation = api.tag.delete.useMutation();
 
   const data = useMemo(() => {
-    if (!posts.data) return [];
-    return posts.data;
-  }, [posts.data]);
+    if (!tags.data) return [];
+    return tags.data;
+  }, [tags.data]);
+
+  const deletePost = (id: string) => {
+    if (confirm("hapus ?")) {
+      console.log("delete");
+      tagDeleteMutation
+        .mutateAsync({ id: String(id) })
+        .then(() => {
+          void tags.refetch();
+          alert("berhasil");
+        })
+        .catch((e: unknown) => {
+          console.error(e);
+          alert("gagal");
+        });
+    }
+  };
 
   const columns = useMemo<
     Column<
@@ -40,7 +57,11 @@ const AdminTabIndex: NextPage = () => {
       {
         Header: "Aksi",
         accessor: "id",
-        Cell: (prop) => <Link href={`/admin/post/${prop.value}`}>Hapus</Link>,
+        Cell: (prop) => (
+          <button type="button" onClick={() => deletePost(prop.value)}>
+            Hapus
+          </button>
+        ),
       },
     ],
     []
@@ -52,7 +73,7 @@ const AdminTabIndex: NextPage = () => {
 
       <AdminLayout className="w-full">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-semibold">Posting</h1>
+          <h1 className="text-2xl font-semibold">Kategori</h1>
           <div>
             <Link href={`/admin/tag/tambah`}>Tambah</Link>
           </div>

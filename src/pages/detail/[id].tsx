@@ -72,7 +72,7 @@ const Detail: NextPage = () => {
                       <Link
                         key={l.id}
                         href={`/to/${l.id}`}
-                        className="rounded-md bg-[#E98EAD] hover:bg-opacity-90 duration-200 px-3 py-1 text-white flex items-center gap-2"
+                        className="flex items-center gap-2 rounded-md bg-[#E98EAD] px-3 py-1 text-white duration-200 hover:bg-opacity-90"
                         target="_blank"
                       >
                         <svg
@@ -160,7 +160,27 @@ const Detail: NextPage = () => {
               <h2>Donasi</h2>
             </SectionTitle>
 
-            <div>Nanti di isi pake iframe dari Trakteer</div>
+            <div className="flex flex-col items-center justify-center pt-4">
+              <a
+                href="https://trakteer.id/azatoionline"
+                target="_blank"
+                className="relative inline-block h-10 w-40"
+              >
+                <Image
+                  fill
+                  id="wse-buttons-preview"
+                  src="https://cdn.trakteer.id/images/embed/trbtn-red-1.png"
+                  alt="Trakteer Saya"
+                  className="object-contain"
+                />
+              </a>
+
+              <iframe
+                src="https://stream.trakteer.id/top-supporter-default.html?ts_font=Play&ts_count=10&ts_theme=default&ts_1_clr2=rgba%28255%2C+137%2C+214%2C+1%29&ts_1_clr3=rgba%28255%2C+221%2C+240%2C+1%29&ts_1_clr4=rgba%28255%2C+241%2C+249%2C+1%29&ts_sortby=unit&ts_interval=30&ts_customtitle=Top+Azatoi+Supporter&ts_customsubtitle=-&key=trstream-qQUWOUmRp37cRZgBng6q"
+                frameBorder="0"
+                className="w-full"
+              ></iframe>
+            </div>
           </div>
 
           <div>
@@ -180,7 +200,7 @@ const Detail: NextPage = () => {
                       >
                         <span>{t.name}</span>
 
-                        <span className="ml-2 flex-initial bg-slate-300 px-1 group-hover:bg-[#E98EAD] hover:bg-opacity-60">
+                        <span className="ml-2 flex-initial bg-slate-300 px-1 hover:bg-opacity-60 group-hover:bg-[#E98EAD]">
                           {t._count.Posts}
                         </span>
                       </button>

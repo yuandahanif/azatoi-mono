@@ -19,6 +19,7 @@ const config = {
       "cdn.discordapp.com",
       "blogger.googleusercontent.com",
       "media.discordapp.net",
+      "cdn.trakteer.id",
     ],
   },
   /**
