@@ -69,7 +69,7 @@ const Detail: NextPage = () => {
                 <div className="mt-4">
                   <h2 className="text-lg font-semibold">Tautan:</h2>
 
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 flex-wrap">
                     {post.data.Links.map((l) => (
                       <Link
                         key={l.id}

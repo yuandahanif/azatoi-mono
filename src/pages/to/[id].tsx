@@ -80,7 +80,7 @@ const Redirector = () => {
       <SEOHead description="Tunggu bentar ya - Azatoi" />
 
       <div
-        className={`relative flex h-screen w-full items-center justify-center bg-[#332041] text-4xl font-semibold text-white ${quicksand.className}`}
+        className={`relative flex h-screen w-full items-center justify-center bg-[#30233f] text-4xl font-semibold text-white ${quicksand.className}`}
       >
         {/* <AnimationContainer>
           <div className="text-animation">
@@ -96,7 +96,7 @@ const Redirector = () => {
             />
             </div>
           </AnimationContainer> */}
-        <div className="image-animation relative h-44 w-96">
+        <div className="image-animation relative h-96 w-96">
           <Image
             src={"/assets/load.gif"}
             alt="logo"
