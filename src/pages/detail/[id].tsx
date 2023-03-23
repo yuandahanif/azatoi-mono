@@ -16,7 +16,7 @@ import ErrorData from "~/components/error/error_data";
 const SectionTitle: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => (
-  <div className="w-full rounded-sm bg-slate-300 p-3 text-center font-semibold text-slate-600">
+  <div className="w-full rounded-sm bg-[#E98EAD] p-3 text-center font-semibold text-white">
     {children}
   </div>
 );
