@@ -34,7 +34,7 @@ const AdminTagTambah: NextPage = () => {
 
   return (
     <>
-      <SEOHead description="Tujuan pertama buat nyari Fansub - Azatoi" />
+      <SEOHead   />
 
       <AdminLayout className="w-full">
         <h1 className="text-4xl font-semibold text-slate-700">Buat Kategori</h1>

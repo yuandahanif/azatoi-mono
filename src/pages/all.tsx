@@ -40,7 +40,7 @@ const All: NextPage = () => {
 
   return (
     <>
-      <SEOHead description="Tujuan pertama buat nyari Fansub - Azatoi" />
+      <SEOHead />
       <Header />
 
       <MainLayout className="">

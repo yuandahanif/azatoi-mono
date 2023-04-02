@@ -33,7 +33,7 @@ const Detail: NextPage = () => {
 
   return (
     <>
-      <SEOHead description="Tujuan pertama buat nyari Fansub - Azatoi" />
+      <SEOHead   />
       <Header />
 
       <MainLayout className="flex min-h-screen flex-col md:flex-row">

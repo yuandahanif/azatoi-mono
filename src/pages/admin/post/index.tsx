@@ -52,7 +52,7 @@ const AdminPostIndex: NextPage = () => {
 
   return (
     <>
-      <SEOHead description="Tujuan pertama buat nyari Fansub - Azatoi" />
+      <SEOHead   />
 
       <AdminLayout className="w-full">
         <div className="flex items-center justify-between">

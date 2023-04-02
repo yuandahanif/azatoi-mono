@@ -18,7 +18,7 @@ const AdminSignIn: NextPage = () => {
 
   return (
     <>
-      <SEOHead description="Tujuan pertama buat nyari Fansub - Azatoi" />
+      <SEOHead   />
 
       <MainLayout className="h-screen w-full bg-slate-300">
         <div className="flex h-full flex-col items-center justify-center gap-4">
