@@ -1,10 +1,7 @@
-import Image from "next/image";
-import quicksand from "~/fonts/quicksand";
-
 const SearchSection = () => {
   return (
     <div
-      className={`flex h-96 items-center justify-center gap-8 bg-[#332041]  bg-[url('/assets/search.png')] bg-cover ${quicksand.className}`}
+      className={`flex h-96 items-center justify-center gap-8 bg-[#332041]  bg-[url('/assets/search.png')] bg-cover `}
     >
       <div>
         <form
